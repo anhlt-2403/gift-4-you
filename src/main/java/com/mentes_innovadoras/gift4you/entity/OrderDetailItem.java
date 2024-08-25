@@ -1,9 +1,6 @@
 package com.mentes_innovadoras.gift4you.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +9,20 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"OrderDetailItem\"")
 public class OrderDetailItem {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
-    @Column(name = "Quantity", nullable = false)
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private OrderDetail orderDetail;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private InventoryItem inventoryItem;
+
+    @Column(nullable = false)
     private Integer quantity;
 
 }
