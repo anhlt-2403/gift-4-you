@@ -11,29 +11,28 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"OrderDetail\"")
 public class OrderDetail {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "OrderId", nullable = false)
+    @JoinColumn(nullable = false)
     private Order order;
 
-    @Column(name = "Quantity", nullable = false)
+    @Column(nullable = false)
     private Integer quantity;
 
-    @Column(name = "Price", nullable = false, precision = 18)
+    @Column(nullable = false, precision = 18)
     private BigDecimal price;
 
-    @Column(name = "Description")
+    @Column
     private String description;
 
-    @Column(name = "CreateAt")
+    @Column
     private Instant createAt;
 
-    @Column(name = "UpdateAt")
+    @Column
     private Instant updateAt;
 
 }

@@ -13,28 +13,27 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"Provider\"")
 public class Provider {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(name = "ContactInfo", nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String contactInfo;
 
-    @Column(name = "Address")
+    @Column
     private String address;
 
-    @Column(name = "CreateAt")
+    @Column
     private Instant createAt;
 
-    @Column(name = "UpdateAt")
+    @Column
     private Instant updateAt;
 
-    @Column(name = "Status", nullable = false, length = 20)
+    @Column(nullable = false, length = 20)
     private String status;
 
 }

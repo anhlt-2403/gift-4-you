@@ -10,26 +10,25 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"OrderHistory\"")
 public class OrderHistory {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "OrderId", nullable = false)
+    @JoinColumn(nullable = false)
     private Order order;
 
-    @Column(name = "Status", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private String status;
 
-    @Column(name = "CreateAt")
+    @Column
     private Instant createAt;
 
-    @Column(name = "UpdateAt")
+    @Column
     private Instant updateAt;
 
-    @Column(name = "Description")
+    @Column
     private String description;
 
 }

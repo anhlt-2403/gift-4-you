@@ -11,47 +11,46 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"User\"")
 public class User {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
     @Nationalized
-    @Column(name = "FullName", length = 50)
+    @Column(length = 50)
     private String fullName;
 
-    @Column(name = "Email", length = 100)
+    @Column(length = 100)
     private String email;
 
-    @Column(name = "Status", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private String status;
 
-    @Column(name = "Gender", length = 10)
+    @Column(length = 10)
     private String gender;
 
-    @Column(name = "CreateAt")
+    @Column
     private Instant createAt;
 
-    @Column(name = "UpdateAt")
+    @Column
     private Instant updateAt;
 
     @Lob
-    @Column(name = "UrlImg")
+    @Column
     private String urlImg;
 
-    @Column(name = "PhoneNumber", length = 20)
+    @Column(length = 20)
     private String phoneNumber;
 
-    @Column(name = "UserName", length = 20)
+    @Column(length = 20)
     private String userName;
 
     @Lob
-    @Column(name = "Password")
+    @Column
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "RoleId", nullable = false)
+    @JoinColumn(nullable = false)
     private Role role;
 
 }

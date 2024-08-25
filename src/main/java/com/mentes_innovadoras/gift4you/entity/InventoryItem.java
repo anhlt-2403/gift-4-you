@@ -1,9 +1,6 @@
 package com.mentes_innovadoras.gift4you.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,31 +11,33 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"InventoryItem\"")
 public class InventoryItem {
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(nullable = false)
     private UUID id;
 
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(name = "Description")
+    @Column
     private String description;
 
-    @Column(name = "Price", nullable = false, precision = 18)
+    @Column(nullable = false, precision = 18)
     private BigDecimal price;
 
-    @Column(name = "Stock", nullable = false)
+    @Column(nullable = false)
     private Integer stock;
 
-    @Column(name = "Status", nullable = false, length = 20)
+    @Column(nullable = false, length = 20)
     private String status;
 
-    @Column(name = "CreateAt")
+    @Column
     private Instant createAt;
 
-    @Column(name = "UpdateAt")
+    @Column
     private Instant updateAt;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Provider provider;
 }
