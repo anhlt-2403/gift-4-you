@@ -1,4 +1,4 @@
-package com.mentes_innovadoras.gift4you.model.common;
+package com.mentes_innovadoras.gift4you.payload.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
