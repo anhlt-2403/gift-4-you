@@ -18,7 +18,7 @@ public class OrderDetail {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
-    private Order order;
+    private Orders order;
 
     @Column(nullable = false)
     private Integer quantity;

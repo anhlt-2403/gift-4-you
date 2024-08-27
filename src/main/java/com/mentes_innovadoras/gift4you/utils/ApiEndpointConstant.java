@@ -1,7 +1,7 @@
 package com.mentes_innovadoras.gift4you.utils;
 
 public class ApiEndpointConstant {
-    public static final String ApiVersion = "/v1";
+        public static final String ApiVersion = "/v1";
     public static final String ApiEndpoint = "/api" + ApiVersion;
 
     public static final class Authentication {

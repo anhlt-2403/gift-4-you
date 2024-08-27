@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserResponse {
+public class AccountResponse {
     private UUID id;
     private String fullName;
     private String email;

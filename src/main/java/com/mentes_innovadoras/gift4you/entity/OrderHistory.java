@@ -17,7 +17,7 @@ public class OrderHistory {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
-    private Order order;
+    private Orders order;
 
     @Column(nullable = false, length = 10)
     private String status;

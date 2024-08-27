@@ -11,7 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class User {
+public class Account {
     @Id
     @Column(nullable = false)
     private UUID id;

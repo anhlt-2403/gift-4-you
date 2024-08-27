@@ -12,37 +12,19 @@ import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Gift-4-You")
-                        .version("1.0")
-                        .description("Gift-4-You Documentation"));
-    }
-
-    private String devUrl = "http://localhost:2403";
-
-//    @Value("")
-//    private String prodUrl;
+    @Value("${gift4you.base-url}")
+    private String baseUrl;
 
     @Bean
     public OpenAPI myOpenAPI() {
-        Server devServer = new Server();
-        devServer.setUrl(devUrl);
-        devServer.setDescription("Server URL in Development environment");
-
-//        Server prodServer = new Server();
-//        prodServer.setUrl(prodUrl);
-//        prodServer.setDescription("Server URL in Production environment");
-
+        Server server = new Server();
+        server.setUrl(baseUrl);
 
         Info info = new Info()
                 .title("Gift-4-You")
-                .version("1.0")
+                .version("V1.0")
                 .description("Gift-4-You Documentation");
 
-
-        return new OpenAPI().info(info).servers(List.of(devServer));
+        return new OpenAPI().info(info).servers(List.of(server));
     }
 }
