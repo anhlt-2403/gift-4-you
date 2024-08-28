@@ -24,14 +24,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> implements Acco
     }
 
     @Override
-    public Page<AccountResponse> findAll(Pageable pageable) {
-        Page<Account> users = userRepository.findAll(pageable);
-        return users.map(userMapper::toAccountResponse);
-    }
-
-    @Override
-    public Page<AccountResponse> findByFullName(String fullName, Pageable pageable) {
-        Page<Account> users = userRepository.findByFullNameContaining(fullName, pageable);
-        return users.map(userMapper::toAccountResponse);
+    public Page<Account> findByFullName(String fullName, Pageable pageable) {
+        return userRepository.findByFullNameContaining(fullName, pageable);
     }
 }

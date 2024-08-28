@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountRequest {
+public class    AccountRequest {
 
     @NotBlank(message = "Full name cannot be blank")
     @Size(max = 100, message = "Full name must be less than or equal to 100 characters")

@@ -14,12 +14,14 @@ import java.util.List;
 public class SwaggerConfig {
     @Value("${gift4you.base-url}")
     private String baseUrl;
+    @Value("${server.description}")
+    private String serverDescription;
 
     @Bean
     public OpenAPI myOpenAPI() {
         Server server = new Server();
         server.setUrl(baseUrl);
-        server.setDescription("");
+        server.setDescription(serverDescription);
 
         Info info = new Info()
                 .title("Gift For You")
