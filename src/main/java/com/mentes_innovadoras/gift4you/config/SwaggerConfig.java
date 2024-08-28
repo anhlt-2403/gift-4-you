@@ -19,12 +19,12 @@ public class SwaggerConfig {
     public OpenAPI myOpenAPI() {
         Server server = new Server();
         server.setUrl(baseUrl);
+        server.setDescription("");
 
         Info info = new Info()
-                .title("Gift-4-You")
+                .title("Gift For You")
                 .version("V1.0")
                 .description("Gift-4-You Documentation");
-
         return new OpenAPI().info(info).servers(List.of(server));
     }
 }
