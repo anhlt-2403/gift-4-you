@@ -1,5 +1,4 @@
 package com.mentes_innovadoras.gift4you.payload.request;
-import com.mentes_innovadoras.gift4you.entity.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class    AccountRequest {
+public class AccountRequest {
 
-    @NotBlank(message = "Full name cannot be blank")
     @Size(max = 100, message = "Full name must be less than or equal to 100 characters")
     private String fullName;
 
@@ -20,7 +18,6 @@ public class    AccountRequest {
     @Size(max = 100, message = "Email must be less than or equal to 100 characters")
     private String email;
 
-    @NotBlank(message = "Email cannot be blank")
     @Size(max = 10, message = "Gender must be less than or equal to 10 characters")
     private String gender;
 
@@ -35,5 +32,8 @@ public class    AccountRequest {
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
-    private Role role;
+    private String urlImg;
+
+    @NotBlank(message = "Role cannot be blank")
+    private String role;
 }
