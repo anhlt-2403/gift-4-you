@@ -1,26 +1,34 @@
 package com.mentes_innovadoras.gift4you.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "role")
 public class Role {
     @Id
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column
+    @Size(max = 255)
+    @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "role")
+    private Set<Account> accounts = new LinkedHashSet<>();
 
 }

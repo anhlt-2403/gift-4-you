@@ -11,6 +11,5 @@ import org.springframework.http.HttpStatus;
 public class ArchitectureException extends Exception {
     protected String code;
     protected String msg;
-    protected String stack;
     protected HttpStatus status;
 }
