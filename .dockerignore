@@ -1,0 +1,19 @@
+# Bỏ qua thư mục Git
+.git
+.gitignore
+
+# Bỏ qua các thư mục build và kết quả build
+target/
+
+# Bỏ qua các file log
+*.log
+
+# Bỏ qua thư mục tạm thời và file tạm thời
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+
+# Bỏ qua các file cấu hình IDE
+*.iml
