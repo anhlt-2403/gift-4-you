@@ -12,6 +12,9 @@ public class ApiEndpointConstant {
         public static final String AccountsEndpoint = ApiEndpoint + "/accounts";
         public static final String AccountEndpoint = AccountsEndpoint + "/{id}";
     }
-
+    public static final class InventoryItem {
+        public static final String InventoryItemsEndpoint = ApiEndpoint + "/inventoryItems";
+        public static final String InventoryItemEndpoint = InventoryItemsEndpoint + "/{id}";
+    }
 
 }
