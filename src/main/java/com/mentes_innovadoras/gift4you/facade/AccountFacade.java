@@ -1,8 +1,8 @@
 package com.mentes_innovadoras.gift4you.facade;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.AccountResponse;
-import com.mentes_innovadoras.gift4you.payload.request.AccountRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
+import com.mentes_innovadoras.gift4you.payload.request.account.AccountRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

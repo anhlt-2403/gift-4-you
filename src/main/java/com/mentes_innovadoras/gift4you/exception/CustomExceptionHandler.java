@@ -3,7 +3,7 @@ package com.mentes_innovadoras.gift4you.exception;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.exception.core.Response.SimpleErrorResponse;
 import com.mentes_innovadoras.gift4you.exception.core.Response.ValidationErrorResponse;
-import com.mentes_innovadoras.gift4you.utils.ResponseConstant;
+import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

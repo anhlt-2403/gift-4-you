@@ -1,7 +1,7 @@
 package com.mentes_innovadoras.gift4you.exception.common;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.utils.ResponseConstant;
+import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import org.springframework.http.HttpStatus;
 
 public class InvalidParamException extends ArchitectureException {

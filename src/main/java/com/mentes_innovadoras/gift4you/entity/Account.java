@@ -7,22 +7,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
-import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account  {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private Date createAt;
 
     @Size(max = 100)
     @Column(name = "email", length = 100)
@@ -38,7 +35,7 @@ public class Account {
     private String gender;
 
     @Lob
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Size(max = 20)
@@ -51,14 +48,14 @@ public class Account {
     private String status;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private Date updateAt;
 
     @Lob
     @Column(name = "url_img")
     private String urlImg;
 
     @Size(max = 20)
-    @Column(name = "user_name", length = 20)
+    @Column(name = "user_name", nullable = false, length = 20)
     private String userName;
 
     @NotNull
@@ -68,4 +65,5 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private Set<Order> orders = new LinkedHashSet<>();
+
 }

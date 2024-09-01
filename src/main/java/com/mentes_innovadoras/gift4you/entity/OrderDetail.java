@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,10 +30,10 @@ public class OrderDetail {
     private Integer quantity;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private Date createAt;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private Date updateAt;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
