@@ -1,4 +1,4 @@
-package com.mentes_innovadoras.gift4you.utils;
+package com.mentes_innovadoras.gift4you.constant;
 
 public class ApiEndpointConstant {
         public static final String ApiVersion = "/v1";

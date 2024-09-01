@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -21,10 +21,10 @@ public class Provider {
     private UUID id;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private Date createAt;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private Date updateAt;
 
     @Size(max = 20)
     @NotNull

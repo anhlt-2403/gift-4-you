@@ -27,8 +27,4 @@ public class Role {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "role")
-    private Set<Account> accounts = new LinkedHashSet<>();
-
 }

@@ -1,8 +1,8 @@
 package com.mentes_innovadoras.gift4you.mapper;
 
 import com.mentes_innovadoras.gift4you.entity.Account;
-import com.mentes_innovadoras.gift4you.payload.reponse.AccountResponse;
-import com.mentes_innovadoras.gift4you.payload.request.AccountRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
+import com.mentes_innovadoras.gift4you.payload.request.account.AccountRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 @Component
