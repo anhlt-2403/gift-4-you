@@ -3,6 +3,7 @@ import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.exception.common.ExpiredJwtException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidJwtException;
+import com.mentes_innovadoras.gift4you.exception.core.JwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,11 +47,16 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token){
-        return Jwts.parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            return Jwts.parser()
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
 
@@ -70,15 +76,9 @@ public class JwtUtil {
     }
 
 
-    public Boolean validateToken(String token) throws AuthenticationException {
-        try {
-            extractAllClaims(token);
-            if (isTokenExpired(token)) {
-                throw new ExpiredJwtException(ResponseConstant.Message.expiredToken);
-            }
+    public Boolean validateToken(String token) throws JwtException {
+            if (extractAllClaims(token) == null) throw new  InvalidJwtException(ResponseConstant.Message.invalidToken);
+            if (isTokenExpired(token)) throw new ExpiredJwtException(ResponseConstant.Message.expiredToken);
             return true;
-        } catch (Exception e) {
-            throw new InvalidJwtException(ResponseConstant.Message.invalidToken);
-        }
     }
 }
