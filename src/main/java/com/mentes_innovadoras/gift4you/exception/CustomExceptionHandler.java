@@ -8,6 +8,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,14 @@ public class CustomExceptionHandler {
         SimpleErrorResponse response = new SimpleErrorResponse(exception);
         return ResponseEntity
                 .status(exception.getStatus())
+                .body(response);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public final ResponseEntity<SimpleErrorResponse> handleBadCredentialsException(BadCredentialsException exception) {
+        SimpleErrorResponse response = new SimpleErrorResponse(exception);
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
                 .body(response);
     }
 
@@ -58,7 +67,7 @@ public class CustomExceptionHandler {
             String errorMessage = violation.getMessage();
             errors.put(propertyPath, errorMessage);
         });
-        ValidationErrorResponse response = new ValidationErrorResponse(ResponseConstant.Code.invalidArgument, ResponseConstant.Message.invalidArgument, errors);
+        ValidationErrorResponse response = new ValidationErrorResponse(ResponseConstant.Code.constraintViolation, ResponseConstant.Message.constraintViolation, errors);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(response);

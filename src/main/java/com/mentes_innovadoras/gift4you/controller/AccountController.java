@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,18 +27,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountController {
     public final AccountFacade accountFacade;
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = ApiEndpointConstant.Account.AccountsEndpoint)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
-                    content = @Content(schema = @Schema(implementation = Page.class)))
+                    content = @Content(schema = @Schema(implementation = PagedModel.class)))
     })
-    public ResponseEntity<Page<AccountResponse>> getAccounts(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size)
+    public ResponseEntity<Object> getAccounts(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size)
     {
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(accountFacade.getAccounts(pageable));
+        return ResponseHandler.response(HttpStatus.OK, accountFacade.getAccounts(pageable), true);
     }
 
 

@@ -1,5 +1,6 @@
 package com.mentes_innovadoras.gift4you.services.authentication;
 
+import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
@@ -10,7 +11,7 @@ import com.mentes_innovadoras.gift4you.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class AuthService {
         Account account = accountRepository.findByUserName(loginRequest.getUserName())
                 .orElseThrow(UserNotFoundException::new);
         if (!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())) {
-            throw new UserNotFoundException();
+            throw new BadCredentialsException(ResponseConstant.Message.invalidPassword);
         }
         UserDetailsImpl userDetails = new UserDetailsImpl(account);
         String accessToken = jwtUtil.generateToken(userDetails);

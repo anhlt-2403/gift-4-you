@@ -16,8 +16,8 @@ import com.mentes_innovadoras.gift4you.repository.RoleRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,8 +58,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Page<AccountResponse> getAccounts(Pageable pageable) {
-        return accountRepository.findAll(pageable).map(accountMapper::toAccountResponse);
+    public PagedModel<AccountResponse> getAccounts(Pageable pageable) {
+        return new PagedModel<>(accountRepository.findAll(pageable).map(accountMapper::toAccountResponse));
     }
 
     @Override
