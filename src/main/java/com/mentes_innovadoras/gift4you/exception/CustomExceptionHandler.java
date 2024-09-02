@@ -27,6 +27,8 @@ public class CustomExceptionHandler {
                 .body(response);
     }
 
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public final ResponseEntity<ValidationErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
