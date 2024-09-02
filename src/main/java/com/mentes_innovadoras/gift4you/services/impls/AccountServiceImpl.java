@@ -16,11 +16,11 @@ import com.mentes_innovadoras.gift4you.repository.RoleRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.type.descriptor.jdbc.DateJdbcType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
 
-
+    @Transactional
     @Override
     public AccountResponse createAccount(@Valid AccountRequest accountRequest) throws ArchitectureException{
         Account account = accountRepository.findByPhoneNumber(accountRequest.getPhoneNumber()).orElse(null);
@@ -50,6 +50,7 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.toAccountResponse(accountRepository.save(newAccount));
     }
 
+    @Transactional
     @Override
     public AccountResponse updateAccount(UUID id, AccountRequest accountRequest) throws ArchitectureException {
         return null;

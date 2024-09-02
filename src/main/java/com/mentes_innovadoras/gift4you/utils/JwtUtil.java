@@ -8,6 +8,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -37,9 +38,6 @@ public class JwtUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public String extractRole(String token) {
-        return extractClaim(token, claims -> (String) claims.get("role"));
-    }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -65,10 +63,9 @@ public class JwtUtil {
     }
 
 
-    public String generateToken(Account account) {
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
-                .subject(account.getUserName())
-                .claim("role", account.getRole().getName())
+                .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationHours* 1000 * 60 * 60))
                 .signWith(getSignInKey())

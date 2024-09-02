@@ -10,6 +10,7 @@ import com.mentes_innovadoras.gift4you.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,8 @@ public class AuthService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())) {
             throw new UserNotFoundException();
         }
-        String accessToken = jwtUtil.generateToken(account);
+        UserDetailsImpl userDetails = new UserDetailsImpl(account);
+        String accessToken = jwtUtil.generateToken(userDetails);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setId(account.getId());
         loginResponse.setFullName(account.getFullName());

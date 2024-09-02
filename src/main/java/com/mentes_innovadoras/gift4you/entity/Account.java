@@ -13,7 +13,7 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "account")
-public class Account  {
+public class Account{
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
@@ -65,5 +65,4 @@ public class Account  {
 
     @OneToMany(mappedBy = "account")
     private Set<Order> orders = new LinkedHashSet<>();
-
 }
