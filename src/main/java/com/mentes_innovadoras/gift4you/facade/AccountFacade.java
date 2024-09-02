@@ -16,7 +16,7 @@ import java.util.UUID;
 public class AccountFacade {
     private final AccountService accountService;
 
-    public Page<AccountResponse> getAccounts(Pageable pageable){
+    public Object getAccounts(Pageable pageable){
         return accountService.getAccounts(pageable);
     }
 
