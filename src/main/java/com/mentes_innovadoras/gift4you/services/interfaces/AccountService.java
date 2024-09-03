@@ -13,8 +13,6 @@ import java.util.UUID;
 public interface AccountService {
     PagedModel<AccountResponse> getAccounts(Pageable pageable);
     AccountResponse getAccountById(UUID id) throws ArchitectureException;
-    AccountResponse findByUserName(String username) throws ArchitectureException;
-    AccountResponse findByPhoneNumber(String phoneNumber) throws ArchitectureException;
     AccountResponse createAccount(AccountRequest accountRequest) throws ArchitectureException;
     AccountResponse updateAccount(UUID id, AccountRequest accountRequest)throws ArchitectureException;
 }

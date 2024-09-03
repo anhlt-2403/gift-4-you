@@ -10,9 +10,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
@@ -25,9 +25,11 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Account")
 public class AccountController {
     public final AccountFacade accountFacade;
-    @PreAuthorize("hasRole('ADMIN')")
+
+    @PreAuthorize("hasAnyRole('admin', 'manager')")
     @GetMapping(value = ApiEndpointConstant.Account.AccountsEndpoint)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
@@ -40,12 +42,11 @@ public class AccountController {
         return ResponseHandler.response(HttpStatus.OK, accountFacade.getAccounts(pageable), true);
     }
 
-
+    @PreAuthorize("permitAll()")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
                     content = @Content(schema = @Schema(implementation = AccountResponse.class)))
     })
-
     @GetMapping(value = ApiEndpointConstant.Account.AccountEndpoint)
     public ResponseEntity<Object> getAccountById(@PathVariable("id") UUID id) throws ArchitectureException
     {

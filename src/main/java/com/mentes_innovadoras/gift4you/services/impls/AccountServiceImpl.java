@@ -1,12 +1,13 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
+import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.entity.Role;
 import com.mentes_innovadoras.gift4you.enums.AccountStatus;
+import com.mentes_innovadoras.gift4you.enums.RoleEnum;
+import com.mentes_innovadoras.gift4you.exception.common.AlreadyExistException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.role.RoleNotFoundException;
-import com.mentes_innovadoras.gift4you.exception.account.PhoneNumberAlreadyExistException;
 import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.AccountMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
@@ -36,10 +37,13 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public AccountResponse createAccount(@Valid AccountRequest accountRequest) throws ArchitectureException{
-        Account account = accountRepository.findByPhoneNumber(accountRequest.getPhoneNumber()).orElse(null);
-        if (account != null) throw new PhoneNumberAlreadyExistException();
+        if (accountRepository.existsByPhoneNumber(accountRequest.getPhoneNumber())) throw new AlreadyExistException(ResponseConstant.Message.phoneNumberAlreadyExist);
+        if (accountRepository.existsByUserName(accountRequest.getUserName())) throw new AlreadyExistException(ResponseConstant.Message.usernameAlreadyExist);
+        if (accountRepository.existsByEmail(accountRequest.getEmail())) throw new AlreadyExistException(ResponseConstant.Message.emailAlreadyExist);
         Role role = roleRepository.findByName(accountRequest.getRole());
-        if (role == null) throw new RoleNotFoundException();
+        if (role == null || accountRequest.getRole().equalsIgnoreCase(RoleEnum.admin.name())) {
+            role = roleRepository.findByName(RoleEnum.customer.name());
+        }
         Account newAccount = accountMapper.toAccountEntity(accountRequest);
         newAccount.setId(UUID.randomUUID());
         newAccount.setCreateAt(new Date());
@@ -68,16 +72,6 @@ public class AccountServiceImpl implements AccountService {
         AccountResponse accountResponse = accountRepository.findById(id).map(accountMapper::toAccountResponse).orElse(null);
         if (accountResponse == null) throw new UserNotFoundException();
         return accountResponse;
-    }
-
-    @Override
-    public AccountResponse findByUserName(String username) {
-        return accountRepository.findByUserName(username).map(accountMapper::toAccountResponse).orElse(null);
-    }
-
-    @Override
-    public AccountResponse findByPhoneNumber(String phoneNumber) {
-        return accountRepository.findByPhoneNumber(phoneNumber).map(accountMapper::toAccountResponse).orElse(null);
     }
 
 }
