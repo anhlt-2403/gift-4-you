@@ -11,7 +11,8 @@ import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.AccountMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
-import com.mentes_innovadoras.gift4you.payload.request.account.AccountRequest;
+import com.mentes_innovadoras.gift4you.payload.request.account.CreateAccountRequest;
+import com.mentes_innovadoras.gift4you.payload.request.account.UpdateAccountRequest;
 import com.mentes_innovadoras.gift4you.repository.AccountRepository;
 import com.mentes_innovadoras.gift4you.repository.RoleRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.AccountService;
@@ -36,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public AccountResponse createAccount(@Valid AccountRequest accountRequest) throws ArchitectureException{
+    public AccountResponse createAccount(@Valid CreateAccountRequest accountRequest) throws ArchitectureException{
         if (accountRepository.existsByPhoneNumber(accountRequest.getPhoneNumber())) throw new AlreadyExistException(ResponseConstant.Message.phoneNumberAlreadyExist);
         if (accountRepository.existsByUserName(accountRequest.getUserName())) throw new AlreadyExistException(ResponseConstant.Message.usernameAlreadyExist);
         if (accountRepository.existsByEmail(accountRequest.getEmail())) throw new AlreadyExistException(ResponseConstant.Message.emailAlreadyExist);
@@ -56,8 +57,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public AccountResponse updateAccount(UUID id, AccountRequest accountRequest) throws ArchitectureException {
-        return null;
+    public AccountResponse updateAccount(UUID id, @Valid UpdateAccountRequest accountRequest) throws ArchitectureException {
+        Account account = accountRepository.findById(id).orElse(null);
+        if (account == null) throw new UserNotFoundException();
+        account.setFullName(accountRequest.getFullName() == null ? account.getFullName() : accountRequest.getFullName());
+        account.setEmail(accountRequest.getEmail() == null ? account.getEmail() : accountRequest.getEmail());
+        account.setGender(accountRequest.getGender() == null ? account.getGender() : accountRequest.getGender());
+        account.setUpdateAt(new Date());
+        return accountMapper.toAccountResponse(accountRepository.save(account));
     }
 
 

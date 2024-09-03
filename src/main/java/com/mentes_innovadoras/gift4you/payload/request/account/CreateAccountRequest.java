@@ -1,12 +1,9 @@
 package com.mentes_innovadoras.gift4you.payload.request.account;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-public class AccountRequest {
+public class CreateAccountRequest {
 
     @Size(max = 100, message = "Full name must be less than or equal to 100 characters")
     private String fullName;
