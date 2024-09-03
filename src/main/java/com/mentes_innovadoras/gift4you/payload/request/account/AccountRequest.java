@@ -11,13 +11,13 @@ public class AccountRequest {
     @Size(max = 100, message = "Full name must be less than or equal to 100 characters")
     private String fullName;
 
-    @Email(message = "Email should be valid")
     @Size(max = 100, message = "Email must be less than or equal to 100 characters")
     private String email;
 
     @Size(max = 10, message = "Gender must be less than or equal to 10 characters")
     private String gender;
 
+    @NotBlank
     @Size(max = 20, message = "phoneNumber must be less than or equal to 20 characters")
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Phone number should be valid")
     private String phoneNumber;
