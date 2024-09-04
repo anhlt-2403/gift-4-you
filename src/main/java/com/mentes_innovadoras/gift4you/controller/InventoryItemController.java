@@ -6,6 +6,7 @@ import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
 import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
 import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
+import com.mentes_innovadoras.gift4you.payload.request.account.UpdateAccountRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -55,8 +56,14 @@ public class InventoryItemController {
                     content = @Content(schema = @Schema(implementation = InventoryItemResponse.class)))
     })
     @PostMapping(value = ApiEndpointConstant.InventoryItem.InventoryItemsEndpoint)
-    public ResponseEntity<Object> CreateInventoryItem(@Valid @RequestBody InventoryItemRequest InventoryItemRequest) throws ArchitectureException
+    public ResponseEntity<Object> CreateInventoryItem(@Valid @RequestBody InventoryItemRequest inventoryItemRequest) throws ArchitectureException
     {
-        return ResponseHandler.response(HttpStatus.OK, inventoryItemFacade.CreateInventoryItem(InventoryItemRequest), true);
+        return ResponseHandler.response(HttpStatus.OK, inventoryItemFacade.CreateInventoryItem(inventoryItemRequest), true);
+    }
+
+    @PutMapping(value = ApiEndpointConstant.InventoryItem.InventoryItemEndpoint)
+    public ResponseEntity<Object> UpdateInventoryItem(@PathVariable("id") UUID id, @Valid @RequestBody InventoryItemRequest inventoryItemRequest) throws ArchitectureException
+    {
+        return ResponseHandler.response(HttpStatus.OK, inventoryItemFacade.UpdateInventoryItem(id, inventoryItemRequest), true);
     }
 }

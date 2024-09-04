@@ -1,6 +1,7 @@
 package com.mentes_innovadoras.gift4you.payload.reponse;
 
 
+import com.mentes_innovadoras.gift4you.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,5 @@ public class OrderResponse {
     private String status;
     private BigDecimal totalPrice;
     private Instant updateAt;
+    private Account account;
 }

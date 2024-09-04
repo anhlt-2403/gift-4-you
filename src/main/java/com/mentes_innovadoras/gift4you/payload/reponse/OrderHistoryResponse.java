@@ -1,5 +1,6 @@
 package com.mentes_innovadoras.gift4you.payload.reponse;
 
+import com.mentes_innovadoras.gift4you.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class OrderHistoryResponse {
     private Instant updateAt;
     private String status;
     private String description;
+    private Order order;
 }

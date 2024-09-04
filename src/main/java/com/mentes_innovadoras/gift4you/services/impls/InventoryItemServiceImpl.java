@@ -1,5 +1,6 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
+import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
@@ -14,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
@@ -54,6 +53,15 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     @Override
     public InventoryItemResponse updateInventoryItem(UUID id, InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
-        return null;
+        InventoryItem inventoryItem = inventoryItemRepository.findById(id).orElse(null);
+        if (inventoryItem == null) throw new UserNotFoundException();
+        inventoryItem.setPrice(inventoryItemRequest.getPrice() == null ? inventoryItem.getPrice() : inventoryItemRequest.getPrice());
+        inventoryItem.setStock(inventoryItemRequest.getStock() == null ? inventoryItem.getStock() : inventoryItemRequest.getStock());
+        inventoryItem.setCreateAt(new Date());
+        inventoryItem.setUpdateAt(new Date());
+        inventoryItem.setStatus(inventoryItemRequest.getStatus() == null ? inventoryItem.getStatus() : inventoryItemRequest.getStatus());
+        inventoryItem.setName(inventoryItemRequest.getName() == null ? inventoryItem.getName() : inventoryItemRequest.getName());
+        inventoryItem.setDescription(inventoryItemRequest.getDescription() == null ? inventoryItem.getDescription() : inventoryItemRequest.getDescription());
+        return inventoryItemMapper.toInventoryItemResponse(inventoryItemRepository.save(inventoryItem));
     }
 }

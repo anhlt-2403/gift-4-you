@@ -1,5 +1,6 @@
 package com.mentes_innovadoras.gift4you.payload.request;
 
+import com.mentes_innovadoras.gift4you.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,5 @@ public class OrderRequest {
     private String status;
     private BigDecimal totalPrice;
     private Instant updateAt;
+    private Account account;
 }

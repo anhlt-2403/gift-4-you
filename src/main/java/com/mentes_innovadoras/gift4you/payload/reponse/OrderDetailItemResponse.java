@@ -1,5 +1,7 @@
 package com.mentes_innovadoras.gift4you.payload.reponse;
 
+import com.mentes_innovadoras.gift4you.entity.InventoryItem;
+import com.mentes_innovadoras.gift4you.entity.OrderDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,4 +15,6 @@ import java.util.UUID;
 public class OrderDetailItemResponse {
     private UUID id;
     private Integer quantity;
+    private InventoryItem inventoryItem;
+    private OrderDetail orderDetail;
 }

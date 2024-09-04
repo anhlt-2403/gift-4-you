@@ -1,5 +1,6 @@
 package com.mentes_innovadoras.gift4you.payload.request;
 
+import com.mentes_innovadoras.gift4you.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ public class OrderDetailRequest {
     private Instant createAt;
     private Instant updateAt;
     private String description;
+    private Order order;
 }

@@ -3,6 +3,7 @@ package com.mentes_innovadoras.gift4you.facade;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
 import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.account.UpdateAccountRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.InventoryItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,9 @@ public class InventoryItemFacade {
 
     public Object CreateInventoryItem(InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
         return inventoryItemService.createInventoryItem(inventoryItemRequest);
+    }
+
+    public Object UpdateInventoryItem(UUID id, InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
+        return inventoryItemService.updateInventoryItem(id, inventoryItemRequest);
     }
 }
