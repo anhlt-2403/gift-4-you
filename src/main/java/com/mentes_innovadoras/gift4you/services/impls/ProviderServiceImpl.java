@@ -52,6 +52,14 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public ProviderResponse updateProvider(UUID id, ProviderRequest providerRequest) throws ArchitectureException {
-        return null;
+        Provider provider = providerRepository.findById(id).orElse(null);
+        if (provider == null) throw new UserNotFoundException();
+        provider.setCreateAt(new Date());
+        provider.setUpdateAt(new Date());
+        provider.setStatus(providerRequest.getStatus());
+        provider.setContactInfo(providerRequest.getContactInfo());
+        provider.setName(providerRequest.getName());
+        provider.setAddress(providerRequest.getAddress());
+        return providerMapper.toProviderResponse(providerRepository.save(provider));
     }
 }
