@@ -3,6 +3,8 @@ package com.mentes_innovadoras.gift4you.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,19 @@ public class SwaggerConfig {
                 .title("Gift For You")
                 .version("V1.0")
                 .description("Gift-4-You Documentation");
-        return new OpenAPI().info(info).servers(List.of(server));
+
+        SecurityScheme securityScheme = new SecurityScheme()
+                .name("bearer-jwt")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearer-jwt");
+
+        return new OpenAPI()
+                .info(info)
+                .servers(List.of(server))
+                .components(new io.swagger.v3.oas.models.Components().addSecuritySchemes("bearer-jwt", securityScheme))
+                .addSecurityItem(securityRequirement);
     }
 }

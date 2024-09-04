@@ -3,7 +3,7 @@ package com.mentes_innovadoras.gift4you.services.impls;
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.InventoryItemMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
 import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -43,8 +44,8 @@ public class InventoryItemServiceImpl implements InventoryItemService {
         newInventoryItem.setId(UUID.randomUUID());
         newInventoryItem.setPrice(inventoryItemRequest.getPrice());
         newInventoryItem.setStock(inventoryItemRequest.getStock());
-        newInventoryItem.setCreateAt(Instant.now().plus(Duration.ofHours(7)));
-        newInventoryItem.setUpdateAt(Instant.now().plus(Duration.ofHours(7)));
+        newInventoryItem.setCreateAt(new Date());
+        newInventoryItem.setUpdateAt(new Date());
         newInventoryItem.setStatus(inventoryItemRequest.getStatus());
         newInventoryItem.setName(inventoryItemRequest.getName());
         newInventoryItem.setDescription(inventoryItemRequest.getDescription());

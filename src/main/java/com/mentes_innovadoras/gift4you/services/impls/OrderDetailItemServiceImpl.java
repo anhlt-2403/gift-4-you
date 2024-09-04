@@ -1,13 +1,11 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderDetailItem;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderDetailItemMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailItemResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.repository.OrderDetailItemRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderDetailItemService;

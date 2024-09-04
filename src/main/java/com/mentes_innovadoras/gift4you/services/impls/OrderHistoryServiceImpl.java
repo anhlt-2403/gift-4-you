@@ -1,13 +1,11 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderHistory;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderHistoryMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.OrderHistoryResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.OrderHistoryRequest;
 import com.mentes_innovadoras.gift4you.repository.OrderHistoryRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderHistoryService;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 @RequiredArgsConstructor
 @Service
@@ -41,8 +40,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     public OrderHistoryResponse createOrderHistory(OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
         OrderHistory newOrderHistory = orderHistoryMapper.toOrderHistoryEntity(orderHistoryRequest);
         newOrderHistory.setId(UUID.randomUUID());
-        newOrderHistory.setCreateAt(Instant.now().plus(Duration.ofHours(7)));
-        newOrderHistory.setUpdateAt(Instant.now().plus(Duration.ofHours(7)));
+        newOrderHistory.setCreateAt(new Date());
+        newOrderHistory.setUpdateAt(new Date());
         newOrderHistory.setDescription(orderHistoryRequest.getDescription());
         newOrderHistory.setStatus(orderHistoryRequest.getStatus());
         return orderHistoryMapper.toOrderHistoryResponse(orderHistoryRepository.save(newOrderHistory));

@@ -1,13 +1,11 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderDetail;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderDetailMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.OrderDetailRequest;
 import com.mentes_innovadoras.gift4you.repository.OrderDetailRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderDetailService;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 @RequiredArgsConstructor
 @Service
@@ -41,8 +40,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetailResponse createOrderDetail(OrderDetailRequest orderDetailRequest) throws ArchitectureException {
         OrderDetail newOrderDetail = orderDetailMapper.toOrderDetailEntity(orderDetailRequest);
         newOrderDetail.setId(UUID.randomUUID());
-        newOrderDetail.setCreateAt(Instant.now().plus(Duration.ofHours(7)));
-        newOrderDetail.setUpdateAt(Instant.now().plus(Duration.ofHours(7)));
+        newOrderDetail.setCreateAt(new Date());
+        newOrderDetail.setUpdateAt(new Date());
         newOrderDetail.setDescription(orderDetailRequest.getDescription());
         newOrderDetail.setPrice(orderDetailRequest.getPrice());
         newOrderDetail.setQuantity(orderDetailRequest.getQuantity());

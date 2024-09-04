@@ -1,12 +1,10 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.Provider;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.ProviderMapper;
-import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
 import com.mentes_innovadoras.gift4you.payload.reponse.ProviderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.ProviderRequest;
 import com.mentes_innovadoras.gift4you.repository.ProviderRepository;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -42,8 +41,8 @@ public class ProviderServiceImpl implements ProviderService {
     public ProviderResponse createProvider(ProviderRequest providerRequest) throws ArchitectureException {
         Provider newProvider = providerMapper.toProviderEntity(providerRequest);
         newProvider.setId(UUID.randomUUID());
-        newProvider.setCreateAt(Instant.now().plus(Duration.ofHours(7)));
-        newProvider.setUpdateAt(Instant.now().plus(Duration.ofHours(7)));
+        newProvider.setCreateAt(new Date());
+        newProvider.setUpdateAt(new Date());
         newProvider.setStatus(providerRequest.getStatus());
         newProvider.setContactInfo(providerRequest.getContactInfo());
         newProvider.setName(providerRequest.getName());

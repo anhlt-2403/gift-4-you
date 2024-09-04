@@ -1,13 +1,11 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.user.UserNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.OrderResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.ProviderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.OrderRequest;
 import com.mentes_innovadoras.gift4you.repository.OrderRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderService;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -42,8 +41,8 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponse createOrder(OrderRequest orderRequest) throws ArchitectureException {
         Order newOrder = orderMapper.toOrderEntity(orderRequest);
         newOrder.setId(UUID.randomUUID());
-        newOrder.setCreateAt(Instant.now().plus(Duration.ofHours(7)));
-        newOrder.setUpdateAt(Instant.now().plus(Duration.ofHours(7)));
+        newOrder.setCreateAt(new Date());
+        newOrder.setUpdateAt(new Date());
         newOrder.setDescription(orderRequest.getDescription());
         newOrder.setPhoneNumber(orderRequest.getPhoneNumber());
         newOrder.setStatus(orderRequest.getStatus());

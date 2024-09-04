@@ -5,7 +5,7 @@ import com.mentes_innovadoras.gift4you.facade.OrderHistoryFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
 import com.mentes_innovadoras.gift4you.payload.reponse.OrderHistoryResponse;
 import com.mentes_innovadoras.gift4you.payload.request.OrderHistoryRequest;
-import com.mentes_innovadoras.gift4you.utils.ApiEndpointConstant;
+import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
