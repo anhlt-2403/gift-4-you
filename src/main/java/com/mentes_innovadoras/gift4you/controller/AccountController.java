@@ -36,9 +36,8 @@ public class AccountController {
             @ApiResponse(responseCode = "200", description = "Successful",
                     content = @Content(schema = @Schema(implementation = PagedModel.class)))
     })
-
     public ResponseEntity<Object> getAccounts(@RequestParam(defaultValue = "0") int page,
-                                                         @RequestParam(defaultValue = "10") int size)
+                                              @RequestParam(defaultValue = "10") int size)
     {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseHandler.response(HttpStatus.OK, accountFacade.getAccounts(pageable), true);
@@ -67,6 +66,10 @@ public class AccountController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'CUSTOMER')")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful",
+                    content = @Content(schema = @Schema(implementation = AccountResponse.class)))
+    })
     @PutMapping(value = ApiEndpointConstant.Account.AccountEndpoint)
     public ResponseEntity<Object> UpdateAccount(@PathVariable("id") UUID id, @Valid @RequestBody UpdateAccountRequest accountRequest) throws ArchitectureException
     {

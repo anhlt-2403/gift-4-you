@@ -60,5 +60,4 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private Set<OrderHistory> orderHistories = new LinkedHashSet<>();
-
 }
