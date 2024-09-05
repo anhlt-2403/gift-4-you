@@ -3,12 +3,14 @@ package com.mentes_innovadoras.gift4you.services.impls;
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.entity.OrderDetail;
 import com.mentes_innovadoras.gift4you.entity.OrderDetailItem;
+import com.mentes_innovadoras.gift4you.exception.account.InventoryItemNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.OrderDetailItemNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.OrderDetailNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderDetailItemMapper;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem.OrderDetailItemResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.repository.InventoryItemRepository;
 import com.mentes_innovadoras.gift4you.repository.OrderDetailItemRepository;
 import com.mentes_innovadoras.gift4you.repository.OrderDetailRepository;
@@ -18,8 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.UUID;
 @RequiredArgsConstructor
 @Service
@@ -38,15 +38,17 @@ public class OrderDetailItemServiceImpl implements OrderDetailItemService {
     public OrderDetailItemResponse getOrderDetailItemById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
         OrderDetailItemResponse orderDetailItemResponse = orderDetailItemRepository.findById(id).map(orderDetailItemMapper::toOrderDetailItemResponse).orElse(null);
-        if (orderDetailItemResponse == null) throw new UserNotFoundException();
+        if (orderDetailItemResponse == null) throw new OrderDetailItemNotFoundException();
         return orderDetailItemResponse;
     }
 
     @Override
     public OrderDetailItemResponse createOrderDetailItem(OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException {
+        OrderDetail orderDetail = orderDetailRepository.findById(orderDetailItemRequest.getOrderDetailId()).orElse(null);
+        if (orderDetail == null) throw new OrderDetailNotFoundException();
+        InventoryItem inventoryItem = inventoryItemRepository.findById(orderDetailItemRequest.getInventoryItemId()).orElse(null);
+        if (inventoryItem == null) throw new InventoryItemNotFoundException();
         OrderDetailItem newOrderDetailItem = orderDetailItemMapper.toOrderDetailItemEntity(orderDetailItemRequest);
-        OrderDetail orderDetail = orderDetailRepository.findById(orderDetailItemRequest.getOrderDetail().getId()).orElse(null);
-        InventoryItem inventoryItem = inventoryItemRepository.findById(orderDetailItemRequest.getInventoryItem().getId()).orElse(null);
         newOrderDetailItem.setId(UUID.randomUUID());
         newOrderDetailItem.setQuantity(orderDetailItemRequest.getQuantity());
         newOrderDetailItem.setOrderDetail(orderDetail);
@@ -56,7 +58,7 @@ public class OrderDetailItemServiceImpl implements OrderDetailItemService {
     @Override
     public OrderDetailItemResponse updateOrderDetailItem(UUID id, OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException {
         OrderDetailItem orderDetailItem = orderDetailItemRepository.findById(id).orElse(null);
-        if (orderDetailItem == null) throw new UserNotFoundException();
+        if (orderDetailItem == null) throw new OrderDetailItemNotFoundException();
         orderDetailItem.setQuantity(orderDetailItemRequest.getQuantity());
         return orderDetailItemMapper.toOrderDetailItemResponse(orderDetailItemRepository.save(orderDetailItem));
     }

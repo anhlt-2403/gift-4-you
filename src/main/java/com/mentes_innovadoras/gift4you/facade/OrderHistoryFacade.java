@@ -1,8 +1,9 @@
 package com.mentes_innovadoras.gift4you.facade;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderHistoryResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderHistoryRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderHistory.OrderHistoryResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.orderHistory.OrderHistoryRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,9 @@ public class OrderHistoryFacade {
 
     public Object CreateOrderHistory(OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
         return orderHistoryService.createOrderHistory(orderHistoryRequest);
+    }
+
+    public Object UpdateOrderHistory(UUID id, OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
+        return orderHistoryService.updateOrderHistory(id, orderHistoryRequest);
     }
 }

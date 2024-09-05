@@ -3,8 +3,9 @@ package com.mentes_innovadoras.gift4you.controller;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.facade.OrderDetailFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetail.OrderDetailResponse;
+import com.mentes_innovadoras.gift4you.payload.request.inventoryItem.InventoryItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -58,5 +59,11 @@ public class OrderDetailController {
     public ResponseEntity<Object> CreateOrderDetail(@Valid @RequestBody OrderDetailRequest orderDetailRequest) throws ArchitectureException
     {
         return ResponseHandler.response(HttpStatus.OK, orderDetailFacade.CreateOrderDetail(orderDetailRequest), true);
+    }
+
+    @PutMapping(value = ApiEndpointConstant.OrderDetail.OrderDetailEndpoint)
+    public ResponseEntity<Object> UpdateOrderDetail(@PathVariable("id") UUID id, @Valid @RequestBody OrderDetailRequest orderDetailRequest) throws ArchitectureException
+    {
+        return ResponseHandler.response(HttpStatus.OK, orderDetailFacade.UpdateOrderDetail(id, orderDetailRequest), true);
     }
 }

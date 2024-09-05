@@ -1,8 +1,8 @@
 package com.mentes_innovadoras.gift4you.services.interfaces;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetail.OrderDetailResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

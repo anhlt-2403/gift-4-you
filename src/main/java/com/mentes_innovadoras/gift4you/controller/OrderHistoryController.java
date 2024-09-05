@@ -3,8 +3,9 @@ package com.mentes_innovadoras.gift4you.controller;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.facade.OrderHistoryFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderHistoryResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderHistoryRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderHistory.OrderHistoryResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.orderHistory.OrderHistoryRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -57,5 +58,11 @@ public class OrderHistoryController {
     public ResponseEntity<Object> CreateOrderHistory(@Valid @RequestBody OrderHistoryRequest orderHistoryRequest) throws ArchitectureException
     {
         return ResponseHandler.response(HttpStatus.OK, orderHistoryFacade.CreateOrderHistory(orderHistoryRequest), true);
+    }
+
+    @PutMapping(value = ApiEndpointConstant.OrderHistory.OrderHistoryEndpoint)
+    public ResponseEntity<Object> UpdateOrderHistory(@PathVariable("id") UUID id, @Valid @RequestBody OrderHistoryRequest orderHistoryRequest) throws ArchitectureException
+    {
+        return ResponseHandler.response(HttpStatus.OK, orderHistoryFacade.UpdateOrderHistory(id, orderHistoryRequest), true);
     }
 }

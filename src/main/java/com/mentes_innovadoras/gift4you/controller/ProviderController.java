@@ -3,8 +3,9 @@ package com.mentes_innovadoras.gift4you.controller;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.facade.ProviderFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
-import com.mentes_innovadoras.gift4you.payload.reponse.ProviderResponse;
-import com.mentes_innovadoras.gift4you.payload.request.ProviderRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.request.provider.ProviderRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -58,5 +59,11 @@ public class ProviderController {
     public ResponseEntity<Object> CreateProvider(@Valid @RequestBody ProviderRequest providerRequest) throws ArchitectureException
     {
         return ResponseHandler.response(HttpStatus.OK, providerFacade.CreateProvider(providerRequest), true);
+    }
+
+    @PutMapping(value = ApiEndpointConstant.Provider.ProviderEndpoint)
+    public ResponseEntity<Object> UpdateProvider(@PathVariable("id") UUID id, @Valid @RequestBody ProviderRequest providerRequest) throws ArchitectureException
+    {
+        return ResponseHandler.response(HttpStatus.OK, providerFacade.UpdateProvider(id, providerRequest), true);
     }
 }

@@ -1,4 +1,4 @@
-package com.mentes_innovadoras.gift4you.payload.reponse;
+package com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem;
 
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.entity.OrderDetail;
@@ -15,6 +15,6 @@ import java.util.UUID;
 public class OrderDetailItemResponse {
     private UUID id;
     private Integer quantity;
-    private InventoryItem inventoryItem;
-    private OrderDetail orderDetail;
+    private String inventoryItemId;
+    private String orderDetailId;
 }

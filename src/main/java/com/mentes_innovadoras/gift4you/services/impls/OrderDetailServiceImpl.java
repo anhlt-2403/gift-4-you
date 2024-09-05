@@ -1,14 +1,14 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.InventoryItem;
 import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderDetail;
+import com.mentes_innovadoras.gift4you.exception.account.OrderDetailNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.OrderNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.OrderDetailMapper;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetail.OrderDetailResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
 import com.mentes_innovadoras.gift4you.repository.OrderDetailRepository;
 import com.mentes_innovadoras.gift4you.repository.OrderRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderDetailService;
@@ -17,8 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 @RequiredArgsConstructor
@@ -36,14 +34,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetailResponse getOrderDetailById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
         OrderDetailResponse orderDetailResponse = orderDetailRepository.findById(id).map(orderDetailMapper::toOrderDetailResponse).orElse(null);
-        if (orderDetailResponse == null) throw new UserNotFoundException();
+        if (orderDetailResponse == null) throw new OrderDetailNotFoundException();
         return orderDetailResponse;
     }
 
     @Override
     public OrderDetailResponse createOrderDetail(OrderDetailRequest orderDetailRequest) throws ArchitectureException {
+        Order order = orderRepository.findById(orderDetailRequest.getOrderId()).orElse(null);
+        if (order == null) throw new OrderNotFoundException();
         OrderDetail newOrderDetail = orderDetailMapper.toOrderDetailEntity(orderDetailRequest);
-        Order order = orderRepository.findById(orderDetailRequest.getOrder().getId()).orElse(null);
         newOrderDetail.setId(UUID.randomUUID());
         newOrderDetail.setCreateAt(new Date());
         newOrderDetail.setUpdateAt(new Date());
@@ -56,7 +55,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public OrderDetailResponse updateOrderDetail(UUID id, OrderDetailRequest orderDetailRequest) throws ArchitectureException {
         OrderDetail orderDetail = orderDetailRepository.findById(id).orElse(null);
-        if (orderDetail == null) throw new UserNotFoundException();
+        if (orderDetail == null) throw new OrderDetailNotFoundException();
         orderDetail.setCreateAt(new Date());
         orderDetail.setUpdateAt(new Date());
         orderDetail.setDescription(orderDetailRequest.getDescription());

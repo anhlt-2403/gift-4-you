@@ -1,8 +1,9 @@
 package com.mentes_innovadoras.gift4you.facade;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem.OrderDetailItemResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderDetailItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,8 @@ public class OrderDetailItemFacade {
 
     public Object CreateOrderDetailItem(OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException {
         return orderDetailItemService.createOrderDetailItem(orderDetailItemRequest);
+    }
+    public Object UpdateOrderDetailItem(UUID id, OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException {
+        return orderDetailItemService.updateOrderDetailItem(id, orderDetailItemRequest);
     }
 }

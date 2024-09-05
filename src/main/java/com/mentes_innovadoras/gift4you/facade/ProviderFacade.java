@@ -1,8 +1,9 @@
 package com.mentes_innovadoras.gift4you.facade;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.ProviderResponse;
-import com.mentes_innovadoras.gift4you.payload.request.ProviderRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderHistory.OrderHistoryRequest;
+import com.mentes_innovadoras.gift4you.payload.request.provider.ProviderRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.ProviderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,9 @@ public class ProviderFacade {
 
     public Object CreateProvider(ProviderRequest providerRequest) throws ArchitectureException {
         return providerService.createProvider(providerRequest);
+    }
+
+    public Object UpdateProvider(UUID id, ProviderRequest providerRequest) throws ArchitectureException {
+        return providerService.updateProvider(id, providerRequest);
     }
 }

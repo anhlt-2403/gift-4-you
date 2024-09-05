@@ -3,8 +3,9 @@ package com.mentes_innovadoras.gift4you.controller;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.facade.OrderDetailItemFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderDetailItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem.OrderDetailItemResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
+import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -57,5 +58,10 @@ public class OrderDetailItemController {
     public ResponseEntity<Object> CreateOrderDetailItem(@Valid @RequestBody OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException
     {
         return ResponseHandler.response(HttpStatus.OK, orderDetailItemFacade.CreateOrderDetailItem(orderDetailItemRequest), true);
+    }
+
+    @PutMapping(value = ApiEndpointConstant.OrderDetailItem.OrderDetailItemEndpoint)
+    public ResponseEntity<Object> UpdateOrderDetailItem(@PathVariable("id") UUID id, @Valid @RequestBody OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException {
+        return ResponseHandler.response(HttpStatus.OK, orderDetailItemFacade.UpdateOrderDetailItem(id, orderDetailItemRequest), true);
     }
 }

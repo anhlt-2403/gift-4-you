@@ -1,8 +1,9 @@
 package com.mentes_innovadoras.gift4you.mapper;
 
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
-import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.inventoryItem.InventoryItemResponse;
+import com.mentes_innovadoras.gift4you.payload.reponse.order.OrderResponse;
+import com.mentes_innovadoras.gift4you.payload.request.inventoryItem.InventoryItemRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ public class InventoryItemMapper {
     }
 
     public InventoryItemResponse toInventoryItemResponse(InventoryItem inventoryItem) {
-        return mapper.map(inventoryItem, InventoryItemResponse.class);
+        InventoryItemResponse response = mapper.map(inventoryItem, InventoryItemResponse.class);
+        response.setProviderId(inventoryItem.getProvider().getId().toString());
+        return response;
     }
 }

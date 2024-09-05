@@ -1,14 +1,16 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
-import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.entity.InventoryItem;
+import com.mentes_innovadoras.gift4you.entity.Provider;
+import com.mentes_innovadoras.gift4you.exception.account.InventoryItemNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.account.ProviderNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.InventoryItemMapper;
-import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.inventoryItem.InventoryItemResponse;
+import com.mentes_innovadoras.gift4you.payload.request.inventoryItem.InventoryItemRequest;
 import com.mentes_innovadoras.gift4you.repository.InventoryItemRepository;
+import com.mentes_innovadoras.gift4you.repository.ProviderRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.InventoryItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,7 @@ import java.util.UUID;
 public class InventoryItemServiceImpl implements InventoryItemService {
     private final InventoryItemRepository inventoryItemRepository;
     private final InventoryItemMapper inventoryItemMapper;
+    private final ProviderRepository providerRepository;
 
     @Override
     public Page<InventoryItemResponse> getInventoryItems(Pageable pageable) {
@@ -33,12 +36,14 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     public InventoryItemResponse getInventoryItemById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
         InventoryItemResponse inventoryItemResponse = inventoryItemRepository.findById(id).map(inventoryItemMapper::toInventoryItemResponse).orElse(null);
-        if (inventoryItemResponse == null) throw new UserNotFoundException();
+        if (inventoryItemResponse == null) throw new InventoryItemNotFoundException();
         return inventoryItemResponse;
     }
 
     @Override
     public InventoryItemResponse createInventoryItem(InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
+        Provider provider = providerRepository.findById(inventoryItemRequest.getProviderId()).orElse(null);
+        if (provider == null) throw new ProviderNotFoundException();
         InventoryItem newInventoryItem = inventoryItemMapper.toInventoryItemEntity(inventoryItemRequest);
         newInventoryItem.setId(UUID.randomUUID());
         newInventoryItem.setPrice(inventoryItemRequest.getPrice());
@@ -54,7 +59,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     public InventoryItemResponse updateInventoryItem(UUID id, InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
         InventoryItem inventoryItem = inventoryItemRepository.findById(id).orElse(null);
-        if (inventoryItem == null) throw new UserNotFoundException();
+        if (inventoryItem == null) throw new InventoryItemNotFoundException();
         inventoryItem.setPrice(inventoryItemRequest.getPrice() == null ? inventoryItem.getPrice() : inventoryItemRequest.getPrice());
         inventoryItem.setStock(inventoryItemRequest.getStock() == null ? inventoryItem.getStock() : inventoryItemRequest.getStock());
         inventoryItem.setCreateAt(new Date());

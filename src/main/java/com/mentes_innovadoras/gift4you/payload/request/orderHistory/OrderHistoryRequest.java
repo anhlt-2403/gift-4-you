@@ -1,5 +1,7 @@
-package com.mentes_innovadoras.gift4you.payload.reponse;
+package com.mentes_innovadoras.gift4you.payload.request.orderHistory;
 
+import com.mentes_innovadoras.gift4you.entity.Order;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +13,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProviderResponse {
-    private UUID id;
+public class OrderHistoryRequest {
     private Instant createAt;
     private Instant updateAt;
     private String status;
-    private String contactInfo;
-    private String name;
-    private String address;
+    private String description;
+    @NotBlank
+    private UUID orderId;
 }

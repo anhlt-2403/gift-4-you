@@ -1,8 +1,9 @@
 package com.mentes_innovadoras.gift4you.mapper;
 
 import com.mentes_innovadoras.gift4you.entity.OrderHistory;
-import com.mentes_innovadoras.gift4you.payload.reponse.OrderHistoryResponse;
-import com.mentes_innovadoras.gift4you.payload.request.OrderHistoryRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.order.OrderResponse;
+import com.mentes_innovadoras.gift4you.payload.reponse.orderHistory.OrderHistoryResponse;
+import com.mentes_innovadoras.gift4you.payload.request.orderHistory.OrderHistoryRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ public class OrderHistoryMapper {
     }
 
     public OrderHistoryResponse toOrderHistoryResponse(OrderHistory orderHistory) {
-        return mapper.map(orderHistory, OrderHistoryResponse.class);
+        OrderHistoryResponse response = mapper.map(orderHistory, OrderHistoryResponse.class);
+        response.setOrderId(orderHistory.getOrder().getId().toString());
+        return response;
     }
 }

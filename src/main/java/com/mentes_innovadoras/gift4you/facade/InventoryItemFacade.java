@@ -1,9 +1,8 @@
 package com.mentes_innovadoras.gift4you.facade;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.payload.reponse.InventoryItemResponse;
-import com.mentes_innovadoras.gift4you.payload.request.InventoryItemRequest;
-import com.mentes_innovadoras.gift4you.payload.request.account.UpdateAccountRequest;
+import com.mentes_innovadoras.gift4you.payload.reponse.inventoryItem.InventoryItemResponse;
+import com.mentes_innovadoras.gift4you.payload.request.inventoryItem.InventoryItemRequest;
 import com.mentes_innovadoras.gift4you.services.interfaces.InventoryItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

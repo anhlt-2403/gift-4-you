@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setUpdateAt(new Date());
         newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
         newAccount.setRole(role);
-        newAccount.setStatus(AccountStatus.active.toString());
+        newAccount.setStatus(AccountStatus.active.name());
         return accountMapper.toAccountResponse(accountRepository.save(newAccount));
     }
 
