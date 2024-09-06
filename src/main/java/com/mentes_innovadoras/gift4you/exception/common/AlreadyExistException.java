@@ -5,10 +5,10 @@ import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import org.springframework.http.HttpStatus;
 
 public class AlreadyExistException extends ArchitectureException {
-    public AlreadyExistException(String message) {
+    public AlreadyExistException(String msg) {
         super();
         this.code = ResponseConstant.Code.alreadyExist;
-        this.msg = message;
+        this.msg = msg;
         this.status = HttpStatus.BAD_REQUEST;
     }
 }
