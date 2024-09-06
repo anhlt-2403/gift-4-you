@@ -2,8 +2,8 @@ package com.mentes_innovadoras.gift4you.services.authentication;
 
 import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import com.mentes_innovadoras.gift4you.entity.Account;
+import com.mentes_innovadoras.gift4you.exception.common.NotFoundException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.payload.reponse.LoginResponse;
 import com.mentes_innovadoras.gift4you.payload.request.LoginRequest;
 import com.mentes_innovadoras.gift4you.repository.AccountRepository;
@@ -26,8 +26,8 @@ public class AuthService {
     private long expirationHours;
 
     public LoginResponse login(@Valid LoginRequest loginRequest) throws ArchitectureException {
-        Account account = accountRepository.findByUserName(loginRequest.getUserName())
-                .orElseThrow(UserNotFoundException::new);
+        Account account = accountRepository.findByUserName(loginRequest.getUserName()).orElse(null);
+        if (account == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
         if (!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())) {
             throw new BadCredentialsException(ResponseConstant.Message.invalidPassword);
         }

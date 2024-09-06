@@ -8,6 +8,6 @@ public enum OrderStatus {
     delivered,
     cancelled,
     returned,
-    refunded,
+    refunded,   
     failed
 }

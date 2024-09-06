@@ -55,7 +55,7 @@ public class Order {
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "order")

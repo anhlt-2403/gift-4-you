@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -29,12 +28,6 @@ public class OrderDetail {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "create_at")
-    private Date createAt;
-
-    @Column(name = "update_at")
-    private Date updateAt;
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
@@ -44,7 +37,7 @@ public class OrderDetail {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "orderDetail")
+    @OneToMany(mappedBy = "orderDetail", cascade = CascadeType.ALL)
     private Set<OrderDetailItem> orderDetailItems = new LinkedHashSet<>();
 
 }

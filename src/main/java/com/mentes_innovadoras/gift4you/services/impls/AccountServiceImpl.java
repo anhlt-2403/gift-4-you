@@ -7,8 +7,8 @@ import com.mentes_innovadoras.gift4you.enums.AccountStatus;
 import com.mentes_innovadoras.gift4you.enums.RoleEnum;
 import com.mentes_innovadoras.gift4you.exception.common.AlreadyExistException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
+import com.mentes_innovadoras.gift4you.exception.common.NotFoundException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
-import com.mentes_innovadoras.gift4you.exception.account.UserNotFoundException;
 import com.mentes_innovadoras.gift4you.mapper.AccountMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
 import com.mentes_innovadoras.gift4you.payload.request.account.CreateAccountRequest;
@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponse updateAccount(UUID id, @Valid UpdateAccountRequest accountRequest) throws ArchitectureException {
         Account account = accountRepository.findById(id).orElse(null);
-        if (account == null) throw new UserNotFoundException();
+        if (account == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
         account.setFullName(accountRequest.getFullName() == null ? account.getFullName() : accountRequest.getFullName());
         account.setEmail(accountRequest.getEmail() == null ? account.getEmail() : accountRequest.getEmail());
         account.setGender(accountRequest.getGender() == null ? account.getGender() : accountRequest.getGender());
@@ -77,7 +77,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountResponse getAccountById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
         AccountResponse accountResponse = accountRepository.findById(id).map(accountMapper::toAccountResponse).orElse(null);
-        if (accountResponse == null) throw new UserNotFoundException();
+        if (accountResponse == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
         return accountResponse;
     }
 
