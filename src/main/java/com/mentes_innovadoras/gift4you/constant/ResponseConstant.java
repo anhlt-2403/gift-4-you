@@ -6,11 +6,11 @@ public class ResponseConstant {
         public static final String invalidArgument = "10";
         public static final String alreadyExist= "11";
         public static final String notFound= "99";
+        public static final String architecture= "1";
         public static final String constraintViolation= "-1";
         public static final String jwtException = "100";
         public static final String accessDenied = "101";
         public static final String badCredentials = "102";
-
     }
 
     public static class Message{
@@ -20,6 +20,7 @@ public class ResponseConstant {
         public static final String usernameAlreadyExist = "Username Already Exist";
         public static final String userNotFound= "User Not Found";
         public static final String orderNotFound= "Order Not Found";
+        public static final String itemNotFound= "Item Not Found";
         public static final String invalidArgument = "Invalid Argument";
         public static final String invalidToken = "Invalid Token";
         public static final String expiredToken = "Expired Token";

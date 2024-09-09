@@ -1,7 +1,7 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
 import com.mentes_innovadoras.gift4you.entity.Provider;
-import com.mentes_innovadoras.gift4you.exception.account.ProviderNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.common.ProviderNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.mapper.ProviderMapper;

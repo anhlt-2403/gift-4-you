@@ -1,15 +1,19 @@
 package com.mentes_innovadoras.gift4you.mapper;
 
 import com.mentes_innovadoras.gift4you.entity.OrderDetail;
+
 import com.mentes_innovadoras.gift4you.payload.reponse.order.OrderResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.orderDetail.OrderDetailResponse;
-import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
+
+
+import com.mentes_innovadoras.gift4you.payload.reponse.order_detail.OrderDetailResponse;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail.OrderDetailRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderDetailMapper {
     private final ModelMapper mapper;
+
     public OrderDetailMapper(ModelMapper mapper) {
         this.mapper = mapper;
     }
@@ -19,7 +23,7 @@ public class OrderDetailMapper {
     }
 
     public OrderDetailResponse toOrderDetailResponse(OrderDetail orderDetail) {
-        OrderDetailResponse response = mapper.map(orderDetail, OrderDetailResponse.class);
-        response.setOrderId(orderDetail.getOrder().getId().toString());
-        return response;    }
+        return mapper.map(orderDetail, OrderDetailResponse.class);
+    }
+
 }

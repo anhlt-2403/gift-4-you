@@ -2,8 +2,7 @@ package com.mentes_innovadoras.gift4you.services.impls;
 
 import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderHistory;
-import com.mentes_innovadoras.gift4you.exception.account.OrderHistoryNotFoundException;
-import com.mentes_innovadoras.gift4you.exception.account.OrderNotFoundException;
+import com.mentes_innovadoras.gift4you.exception.common.OrderHistoryNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.mapper.OrderHistoryMapper;
@@ -41,7 +40,6 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     @Override
     public OrderHistoryResponse createOrderHistory(OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
         Order order = orderRepository.findById(orderHistoryRequest.getOrderId()).orElse(null);
-        if (order == null) throw new OrderNotFoundException();
         OrderHistory newOrderHistory = orderHistoryMapper.toOrderHistoryEntity(orderHistoryRequest);
         newOrderHistory.setId(UUID.randomUUID());
         newOrderHistory.setCreateAt(new Date());

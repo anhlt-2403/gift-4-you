@@ -1,11 +1,11 @@
-package com.mentes_innovadoras.gift4you.exception.account;
+package com.mentes_innovadoras.gift4you.exception.common;
 
-import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
+import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import org.springframework.http.HttpStatus;
 
-public class UserNotFoundException extends ArchitectureException {
-    public UserNotFoundException() {
+public class OrderHistoryNotFoundException extends ArchitectureException {
+    public OrderHistoryNotFoundException() {
         super();
         this.code = ResponseConstant.Code.notFound;
         this.msg = ResponseConstant.Message.userNotFound;

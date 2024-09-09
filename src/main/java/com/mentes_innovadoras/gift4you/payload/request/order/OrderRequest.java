@@ -1,20 +1,18 @@
 package com.mentes_innovadoras.gift4you.payload.request.order;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail.OrderDetailRequest;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 public class OrderRequest {
-
-    @Size(max = 255, message = "Address must be less than or equal to 255 characters")
     @NotBlank
+    @Size(max = 255, message = "Address must be less than or equal to 255 characters")
     private String address;
 
     private Date createAt;
@@ -27,12 +25,15 @@ public class OrderRequest {
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Phone number should be valid")
     private String phoneNumber;
 
-    @NotBlank
+    @NotNull
     @Positive
     private BigDecimal totalPrice;
 
     private Date updateAt;
 
-    @NotBlank
+    @NotNull
     private UUID accountId;
+
+    @NotEmpty
+    private Set<OrderDetailRequest> orderDetails;
 }

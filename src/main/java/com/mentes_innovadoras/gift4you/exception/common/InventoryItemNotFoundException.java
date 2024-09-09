@@ -1,14 +1,15 @@
-package com.mentes_innovadoras.gift4you.exception.account;
+package com.mentes_innovadoras.gift4you.exception.common;
 
 import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
-import org.springframework.http.HttpStatus;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
+import org.springframework.http.HttpStatus;
 
-public class ProviderNotFoundException extends ArchitectureException {
-    public ProviderNotFoundException() {
+public class InventoryItemNotFoundException extends ArchitectureException {
+    public InventoryItemNotFoundException() {
         super();
         this.code = ResponseConstant.Code.notFound;
         this.msg = ResponseConstant.Message.userNotFound;
         this.status = HttpStatus.NOT_FOUND;
     }
 }
+
