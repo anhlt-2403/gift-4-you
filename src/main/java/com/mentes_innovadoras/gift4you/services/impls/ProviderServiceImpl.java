@@ -1,11 +1,16 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
+import com.mentes_innovadoras.gift4you.entity.InventoryItem;
+import com.mentes_innovadoras.gift4you.entity.OrderDetailItem;
 import com.mentes_innovadoras.gift4you.entity.Provider;
 import com.mentes_innovadoras.gift4you.exception.common.ProviderNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
+import com.mentes_innovadoras.gift4you.mapper.InventoryItemMapper;
 import com.mentes_innovadoras.gift4you.mapper.ProviderMapper;
 import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse;
+import com.mentes_innovadoras.gift4you.payload.request.inventoryItem.InventoryItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.payload.request.provider.ProviderRequest;
 import com.mentes_innovadoras.gift4you.repository.ProviderRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.ProviderService;
@@ -15,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -22,6 +29,8 @@ import java.util.UUID;
 public class ProviderServiceImpl implements ProviderService {
     private final ProviderRepository providerRepository;
     private final ProviderMapper providerMapper;
+    private final InventoryItemMapper inventoryItemMapper;
+
     @Override
     public Page<ProviderResponse> getProviders(Pageable pageable) {
         return providerRepository.findAll(pageable).map(providerMapper::toProviderResponse);
@@ -45,7 +54,18 @@ public class ProviderServiceImpl implements ProviderService {
         newProvider.setContactInfo(providerRequest.getContactInfo());
         newProvider.setName(providerRequest.getName());
         newProvider.setAddress(providerRequest.getAddress());
+        Set<InventoryItem> inventoryItems = new HashSet<>();
+        for (InventoryItemRequest inventoryItemRequest : providerRequest.getItems()) {
+            InventoryItem inventoryItem = handleInventoryItem(inventoryItemRequest);
+            inventoryItems.add(inventoryItem);
+        }
+        newProvider.setInventoryItems(inventoryItems);
         return providerMapper.toProviderResponse(providerRepository.save(newProvider));
+    }
+    private InventoryItem handleInventoryItem(InventoryItemRequest inventoryItemRequest) throws ArchitectureException {
+        InventoryItem inventoryItem = inventoryItemMapper.toInventoryItemEntity(inventoryItemRequest);
+        inventoryItem.setId(UUID.randomUUID());
+        return inventoryItem;
     }
 
     @Override

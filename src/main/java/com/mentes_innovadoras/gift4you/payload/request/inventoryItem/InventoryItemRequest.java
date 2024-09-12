@@ -1,7 +1,10 @@
 package com.mentes_innovadoras.gift4you.payload.request.inventoryItem;
 
 import com.mentes_innovadoras.gift4you.entity.Provider;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.OrderDetailItemRequest;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +12,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +27,8 @@ public class InventoryItemRequest {
     private String status;
     private String name;
     private String description;
-    @NotBlank
+    @NotNull
     private UUID providerId;
+    @NotEmpty
+    private Set<OrderDetailItemRequest> items;
 }
