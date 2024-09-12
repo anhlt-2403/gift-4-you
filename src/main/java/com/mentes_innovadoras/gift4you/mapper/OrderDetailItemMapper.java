@@ -10,6 +10,7 @@ import com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem.OrderDeta
 import com.mentes_innovadoras.gift4you.payload.reponse.order_detail.OrderDetailResponse;
 import com.mentes_innovadoras.gift4you.payload.request.order_detail.OrderDetailRequest;
 
+import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.CreateOrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.OrderDetailItemRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -25,17 +26,15 @@ public class OrderDetailItemMapper {
     public OrderDetailItem toOrderDetailItemEntity(OrderDetailItemRequest orderDetailItemRequest) {
         return mapper.map(orderDetailItemRequest, OrderDetailItem.class);
     }
-
+    public OrderDetailItem toCreateOrderDetailItem(CreateOrderDetailItemRequest createOrderDetailItemRequest) {
+        return mapper.map(createOrderDetailItemRequest, OrderDetailItem.class);
+    }
     public OrderDetailResponse toOrderDetailResponse(OrderDetail orderDetail) {
         return mapper.map(orderDetail, OrderDetailResponse.class);
     }
 
     public OrderDetailItemResponse toOrderDetailItemResponse(OrderDetailItem orderDetailItem) {
-        OrderDetailItemResponse response = mapper.map(orderDetailItem, OrderDetailItemResponse.class);
-        response.setOrderDetailId(orderDetailItem.getOrderDetail().getId().toString());
-        response.setInventoryItemId(orderDetailItem.getInventoryItem().getId().toString());
-        return response;
+        return mapper.map(orderDetailItem, OrderDetailItemResponse.class);
     }
-
 
 }

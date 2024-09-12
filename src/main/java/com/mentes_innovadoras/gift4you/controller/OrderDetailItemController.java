@@ -5,8 +5,9 @@ import com.mentes_innovadoras.gift4you.facade.OrderDetailItemFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
 import com.mentes_innovadoras.gift4you.payload.reponse.orderDetailItem.OrderDetailItemResponse;
 import com.mentes_innovadoras.gift4you.payload.request.orderDetail.OrderDetailRequest;
-import com.mentes_innovadoras.gift4you.payload.request.orderDetailItem.OrderDetailItemRequest;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.OrderDetailItemRequest;
 import com.mentes_innovadoras.gift4you.constant.ApiEndpointConstant;
+import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.CreateOrderDetailItemRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +34,8 @@ public class OrderDetailItemController {
                     content = @Content(schema = @Schema(implementation = Page.class)))
     })
     @GetMapping(value = ApiEndpointConstant.OrderDetailItem.OrderDetailItemsEndpoint)
-    public Page<OrderDetailItemResponse> getOrderDetailItems(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size)
+    public PagedModel<OrderDetailItemResponse> getOrderDetailItems(@RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "10") int size)
     {
         Pageable pageable = PageRequest.of(page, size);
         return orderDetailItemFacade.getOrderDetailItems(pageable);
@@ -55,9 +57,9 @@ public class OrderDetailItemController {
                     content = @Content(schema = @Schema(implementation = OrderDetailItemResponse.class)))
     })
     @PostMapping(value = ApiEndpointConstant.OrderDetailItem.OrderDetailItemsEndpoint)
-    public ResponseEntity<Object> CreateOrderDetailItem(@Valid @RequestBody OrderDetailItemRequest orderDetailItemRequest) throws ArchitectureException
+    public ResponseEntity<Object> CreateOrderDetailItem(@Valid @RequestBody CreateOrderDetailItemRequest createOrderDetailItemRequest) throws ArchitectureException
     {
-        return ResponseHandler.response(HttpStatus.OK, orderDetailItemFacade.CreateOrderDetailItem(orderDetailItemRequest), true);
+        return ResponseHandler.response(HttpStatus.OK, orderDetailItemFacade.CreateOrderDetailItem(createOrderDetailItemRequest), true);
     }
 
     @PutMapping(value = ApiEndpointConstant.OrderDetailItem.OrderDetailItemEndpoint)
