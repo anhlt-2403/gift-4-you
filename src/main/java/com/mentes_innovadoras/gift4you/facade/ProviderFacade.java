@@ -8,6 +8,7 @@ import com.mentes_innovadoras.gift4you.services.interfaces.ProviderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class ProviderFacade {
     private final ProviderService providerService;
 
-    public Page<ProviderResponse> getProviders(Pageable pageable){
+    public PagedModel<ProviderResponse> getProviders(Pageable pageable){
         return providerService.getProviders(pageable);
     }
 

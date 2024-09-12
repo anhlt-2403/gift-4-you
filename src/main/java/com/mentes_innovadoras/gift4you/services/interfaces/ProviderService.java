@@ -5,11 +5,12 @@ import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse
 import com.mentes_innovadoras.gift4you.payload.request.provider.ProviderRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 
 import java.util.UUID;
 
 public interface ProviderService {
-    Page<ProviderResponse> getProviders(Pageable pageable);
+    PagedModel<ProviderResponse> getProviders(Pageable pageable);
     ProviderResponse getProviderById(UUID id) throws ArchitectureException;
     ProviderResponse createProvider(ProviderRequest providerRequest) throws ArchitectureException;
     ProviderResponse updateProvider(UUID id, ProviderRequest providerRequest)throws ArchitectureException;

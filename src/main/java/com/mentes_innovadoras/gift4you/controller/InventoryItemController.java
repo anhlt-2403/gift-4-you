@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,8 @@ public class InventoryItemController {
                     content = @Content(schema = @Schema(implementation = Page.class)))
     })
     @GetMapping(value = ApiEndpointConstant.InventoryItem.InventoryItemsEndpoint)
-    public Page<InventoryItemResponse> getInventoryItems(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "10") int size)
+    public PagedModel<InventoryItemResponse> getInventoryItems(@RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size)
     {
         Pageable pageable = PageRequest.of(page, size);
         return inventoryItemFacade.getInventoryItems(pageable);

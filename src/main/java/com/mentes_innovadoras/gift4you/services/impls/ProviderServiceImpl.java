@@ -17,6 +17,7 @@ import com.mentes_innovadoras.gift4you.services.interfaces.ProviderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,8 +33,8 @@ public class ProviderServiceImpl implements ProviderService {
     private final InventoryItemMapper inventoryItemMapper;
 
     @Override
-    public Page<ProviderResponse> getProviders(Pageable pageable) {
-        return providerRepository.findAll(pageable).map(providerMapper::toProviderResponse);
+    public PagedModel<ProviderResponse> getProviders(Pageable pageable) {
+        return new PagedModel<>(providerRepository.findAll(pageable).map(providerMapper::toProviderResponse));
     }
 
     @Override

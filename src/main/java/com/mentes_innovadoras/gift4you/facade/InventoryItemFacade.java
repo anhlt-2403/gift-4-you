@@ -7,6 +7,7 @@ import com.mentes_innovadoras.gift4you.services.interfaces.InventoryItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public class InventoryItemFacade {
     private final InventoryItemService inventoryItemService;
 
-    public Page<InventoryItemResponse> getInventoryItems(Pageable pageable){
+    public PagedModel<InventoryItemResponse> getInventoryItems(Pageable pageable){
         return inventoryItemService.getInventoryItems(pageable);
     }
 

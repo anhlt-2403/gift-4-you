@@ -20,6 +20,7 @@ public class ApiEndpointConstant {
         public static final String OrdersEndpoint = ApiEndpoint + "/orders";
         public static final String OrderEndpoint = OrdersEndpoint + "/{id}";
     }
+
     public static final class OrderDetail {
         public static final String OrderDetailsEndpoint = ApiEndpoint + "/orderDetails";
         public static final String OrderDetailEndpoint = OrderDetailsEndpoint + "/{id}";
@@ -32,8 +33,12 @@ public class ApiEndpointConstant {
         public static final String OrderHistoriesEndpoint = ApiEndpoint + "/orderHistories";
         public static final String OrderHistoryEndpoint = OrderHistoriesEndpoint + "/{id}";
     }
+
     public static final class Provider {
         public static final String ProvidersEndpoint = ApiEndpoint + "/providers";
         public static final String ProviderEndpoint = ProvidersEndpoint + "/{id}";
     }
+
+
+
 }
