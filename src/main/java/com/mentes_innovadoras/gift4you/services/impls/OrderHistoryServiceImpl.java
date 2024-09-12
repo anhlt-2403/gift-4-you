@@ -1,7 +1,9 @@
 package com.mentes_innovadoras.gift4you.services.impls;
 
+import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
 import com.mentes_innovadoras.gift4you.entity.Order;
 import com.mentes_innovadoras.gift4you.entity.OrderHistory;
+import com.mentes_innovadoras.gift4you.exception.common.NotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.OrderHistoryNotFoundException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidParamException;
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
@@ -14,6 +16,7 @@ import com.mentes_innovadoras.gift4you.services.interfaces.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,39 +28,34 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     private final OrderHistoryMapper orderHistoryMapper;
     private final OrderRepository orderRepository;
     @Override
-    public Page<OrderHistoryResponse> getOrderHistories(Pageable pageable) {
-        return orderHistoryRepository.findAll(pageable).map(orderHistoryMapper::toOrderHistoryResponse);
+    public PagedModel<OrderHistoryResponse> getOrderHistories(Pageable pageable) {
+        return new PagedModel<>(orderHistoryRepository.findAll(pageable).map(orderHistoryMapper::toOrderHistoryResponse));
     }
 
     @Override
     public OrderHistoryResponse getOrderHistoryById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
-        OrderHistoryResponse orderHistoryResponse = orderHistoryRepository.findById(id).map(orderHistoryMapper::toOrderHistoryResponse).orElse(null);
-        if (orderHistoryResponse == null) throw new OrderHistoryNotFoundException();
-        return orderHistoryResponse;
+        return orderHistoryRepository.findById(id).map(orderHistoryMapper::toOrderHistoryResponse).orElseThrow(() -> new NotFoundException(ResponseConstant.Message.orderHistoryNotFound));
     }
 
     @Override
     public OrderHistoryResponse createOrderHistory(OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
-        Order order = orderRepository.findById(orderHistoryRequest.getOrderId()).orElse(null);
+        Order order = orderRepository.findById(orderHistoryRequest.getOrderId()).orElseThrow(() -> new NotFoundException(ResponseConstant.Message.orderNotFound));
         OrderHistory newOrderHistory = orderHistoryMapper.toOrderHistoryEntity(orderHistoryRequest);
         newOrderHistory.setId(UUID.randomUUID());
         newOrderHistory.setCreateAt(new Date());
         newOrderHistory.setUpdateAt(new Date());
-        newOrderHistory.setDescription(orderHistoryRequest.getDescription());
-        newOrderHistory.setStatus(orderHistoryRequest.getStatus());
         newOrderHistory.setOrder(order);
         return orderHistoryMapper.toOrderHistoryResponse(orderHistoryRepository.save(newOrderHistory));
     }
 
     @Override
-    public OrderHistoryResponse updateOrderHistory(UUID id, OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
+    public OrderHistoryResponse updateOrderHistoryStatusDescription(UUID id, String status, String description) throws ArchitectureException {
         OrderHistory orderHistory = orderHistoryRepository.findById(id).orElse(null);
-        if (orderHistory == null) throw new OrderHistoryNotFoundException();
-        orderHistory.setCreateAt(new Date());
+        if (orderHistory == null) throw new NotFoundException(ResponseConstant.Message.orderHistoryNotFound);
         orderHistory.setUpdateAt(new Date());
-        orderHistory.setDescription(orderHistoryRequest.getDescription());
-        orderHistory.setStatus(orderHistoryRequest.getStatus());
+        orderHistory.setDescription(description);
+        orderHistory.setStatus(status);
         return orderHistoryMapper.toOrderHistoryResponse(orderHistoryRepository.save(orderHistory));
     }
 }

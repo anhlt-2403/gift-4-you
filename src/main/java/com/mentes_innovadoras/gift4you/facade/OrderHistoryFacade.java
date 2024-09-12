@@ -8,6 +8,7 @@ import com.mentes_innovadoras.gift4you.services.interfaces.OrderHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class OrderHistoryFacade {
     private final OrderHistoryService orderHistoryService;
 
-    public Page<OrderHistoryResponse> getOrderHistories(Pageable pageable){
+    public PagedModel<OrderHistoryResponse> getOrderHistories(Pageable pageable){
         return orderHistoryService.getOrderHistories(pageable);
     }
 
@@ -29,7 +30,7 @@ public class OrderHistoryFacade {
         return orderHistoryService.createOrderHistory(orderHistoryRequest);
     }
 
-    public Object UpdateOrderHistory(UUID id, OrderHistoryRequest orderHistoryRequest) throws ArchitectureException {
-        return orderHistoryService.updateOrderHistory(id, orderHistoryRequest);
+    public Object UpdateOrderHistoryStatusDescription(UUID id, String status, String description) throws ArchitectureException {
+        return orderHistoryService.updateOrderHistoryStatusDescription(id, status, description);
     }
 }
