@@ -20,6 +20,10 @@ public class ResponseConstant {
         public static final String usernameAlreadyExist = "Username Already Exist";
         public static final String userNotFound= "User Not Found";
         public static final String orderNotFound= "Order Not Found";
+        public static final String orderDetailNotFound = "Order Detail Not Found";
+        public static final String orderHistoryNotFound = "Order History Not Found";
+        public static final String providerNotFound = "Provider Not Found";
+        public static final String inventoryItemNotFound = "Inventory Item Not Found";
         public static final String itemNotFound= "Item Not Found";
         public static final String invalidArgument = "Invalid Argument";
         public static final String invalidToken = "Invalid Token";
