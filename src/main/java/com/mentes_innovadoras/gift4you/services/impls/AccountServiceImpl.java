@@ -58,8 +58,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public AccountResponse updateAccount(UUID id, @Valid UpdateAccountRequest accountRequest) throws ArchitectureException {
-        Account account = accountRepository.findById(id).orElse(null);
-        if (account == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
+        Account account = accountRepository.findById(id).orElseThrow(() ->new NotFoundException(ResponseConstant.Message.userNotFound));
         account.setFullName(accountRequest.getFullName() == null ? account.getFullName() : accountRequest.getFullName());
         account.setEmail(accountRequest.getEmail() == null ? account.getEmail() : accountRequest.getEmail());
         account.setGender(accountRequest.getGender() == null ? account.getGender() : accountRequest.getGender());
@@ -76,9 +75,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponse getAccountById(UUID id) throws ArchitectureException {
         if (id == null) throw new InvalidParamException();
-        AccountResponse accountResponse = accountRepository.findById(id).map(accountMapper::toAccountResponse).orElse(null);
-        if (accountResponse == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
-        return accountResponse;
+        return accountRepository.findById(id).map(accountMapper::toAccountResponse)
+                .orElseThrow(() -> new NotFoundException(ResponseConstant.Message.userNotFound));
     }
 
 }
