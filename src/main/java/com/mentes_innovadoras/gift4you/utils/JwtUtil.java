@@ -20,9 +20,9 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    @Value("${secret.key}")
-    private String SECRET_KEY;
-    @Value("${expiration.hours}")
+//    @Value("${secret.key}")
+    private String SECRET_KEY = "a746ebef4f3380bed6453231d88a8387aea76c822b7b5a140faad50515ca4f0d";
+//    @Value("${expiration.hours}")
     private long expirationHours;
 
     private SecretKey getSignInKey() {

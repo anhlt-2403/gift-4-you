@@ -22,7 +22,7 @@ public class AuthService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
-    @Value("${expiration.hours}")
+//    @Value("${expiration.hours}")
     private long expirationHours;
 
     public LoginResponse login(@Valid LoginRequest loginRequest) throws ArchitectureException {

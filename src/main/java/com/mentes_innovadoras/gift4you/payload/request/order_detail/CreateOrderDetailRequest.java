@@ -1,7 +1,10 @@
 package com.mentes_innovadoras.gift4you.payload.request.order_detail;
 
 import com.mentes_innovadoras.gift4you.payload.request.order_detail_item.OrderDetailItemRequest;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailRequest {
+public class CreateOrderDetailRequest {
     @NotNull
     @Positive
     private BigDecimal price;
@@ -29,4 +32,7 @@ public class OrderDetailRequest {
 
     @NotEmpty
     private Set<OrderDetailItemRequest> items;
+
+    @NotNull
+    private UUID orderId;
 }

@@ -1,7 +1,6 @@
 package com.mentes_innovadoras.gift4you.payload.request.order_detail_item;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +12,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailItemRequest {
-
-    @NotNull
-    private UUID itemId;
-
-    @NotNull
-    @Positive
+public class CreateOrderDetailItemRequest {
     private Integer quantity;
+    @NotNull
+    private UUID inventoryItemId;
+    @NotNull
+    private UUID orderDetailId;
 }
