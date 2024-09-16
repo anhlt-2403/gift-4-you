@@ -6,36 +6,28 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "order_history")
-public class OrderHistory {
+@Table(name = "review")
+public class Review {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
-
-    @Column(name = "create_at")
-    private Instant createAt;
 
     @Size(max = 255)
     @Column(name = "description")
     private String description;
 
-    @Size(max = 10)
     @NotNull
-    @Column(name = "status", nullable = false, length = 10)
-    private String status;
-
-    @Column(name = "update_at")
-    private Instant updateAt;
+    @Column(name = "start", nullable = false)
+    private Integer start;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @JoinColumn(name = "template_id", nullable = false)
+    private Template template;
 
 }

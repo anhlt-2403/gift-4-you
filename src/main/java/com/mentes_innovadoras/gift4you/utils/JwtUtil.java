@@ -1,13 +1,11 @@
 package com.mentes_innovadoras.gift4you.utils;
 import com.mentes_innovadoras.gift4you.constant.ResponseConstant;
-import com.mentes_innovadoras.gift4you.entity.Account;
 import com.mentes_innovadoras.gift4you.exception.common.ExpiredJwtException;
 import com.mentes_innovadoras.gift4you.exception.common.InvalidJwtException;
 import com.mentes_innovadoras.gift4you.exception.core.JwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 

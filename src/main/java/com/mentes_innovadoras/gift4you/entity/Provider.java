@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,30 +20,30 @@ public class Provider {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "create_at")
-    private Date createAt;
-
-    @Column(name = "update_at")
-    private Date updateAt;
-
-    @Size(max = 20)
-    @NotNull
-    @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    @Size(max = 255)
+    @Column(name = "address")
+    private String address;
 
     @Size(max = 50)
     @NotNull
     @Column(name = "contact_info", nullable = false, length = 50)
     private String contactInfo;
 
+    @Column(name = "create_at")
+    private Instant createAt;
+
     @Size(max = 50)
     @NotNull
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Size(max = 255)
-    @Column(name = "address")
-    private String address;
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "status", nullable = false, length = 20)
+    private String status;
+
+    @Column(name = "update_at")
+    private Instant updateAt;
 
     @OneToMany(mappedBy = "provider")
     private Set<InventoryItem> inventoryItems = new LinkedHashSet<>();

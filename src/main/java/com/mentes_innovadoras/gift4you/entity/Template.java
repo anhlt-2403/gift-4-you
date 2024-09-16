@@ -14,30 +14,31 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_detail")
-public class OrderDetail {
+@Table(name = "template")
+public class Template {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
+
+    @NotNull
+    @Lob
+    @Column(name = "url_img", nullable = false)
+    private String urlImg;
 
     @Size(max = 255)
     @Column(name = "description")
     private String description;
 
-    @NotNull
-    @Column(name = "price", nullable = false, precision = 18)
+    @Column(name = "price", precision = 18)
     private BigDecimal price;
 
-    @NotNull
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    @Column(name = "total_sales")
+    private Integer totalSales;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @OneToMany(mappedBy = "template")
+    private Set<Review> reviews = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "orderDetail")
-    private Set<OrderDetailItem> orderDetailItems = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "template")
+    private Set<TemplateDetail> templateDetails = new LinkedHashSet<>();
 
 }

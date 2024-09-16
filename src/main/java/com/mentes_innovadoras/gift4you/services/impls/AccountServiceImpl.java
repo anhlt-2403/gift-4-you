@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 
@@ -39,7 +40,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponse createAccount(@Valid CreateAccountRequest accountRequest) throws ArchitectureException{
         if (accountRepository.existsByPhoneNumber(accountRequest.getPhoneNumber())) throw new AlreadyExistException(ResponseConstant.Message.phoneNumberAlreadyExist);
-        if (accountRepository.existsByUserName(accountRequest.getUserName())) throw new AlreadyExistException(ResponseConstant.Message.usernameAlreadyExist);
         if (accountRepository.existsByEmail(accountRequest.getEmail())) throw new AlreadyExistException(ResponseConstant.Message.emailAlreadyExist);
         Role role = roleRepository.findByName(accountRequest.getRole());
         if (role == null || accountRequest.getRole().equalsIgnoreCase(RoleEnum.admin.name())) {
@@ -47,8 +47,8 @@ public class AccountServiceImpl implements AccountService {
         }
         Account newAccount = accountMapper.toAccountEntity(accountRequest);
         newAccount.setId(UUID.randomUUID());
-        newAccount.setCreateAt(new Date());
-        newAccount.setUpdateAt(new Date());
+        newAccount.setCreateAt(new Date().toInstant().minus(Duration.ofHours(6)));
+        newAccount.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
         newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
         newAccount.setRole(role);
         newAccount.setStatus(AccountStatus.active.name());
@@ -62,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
         account.setFullName(accountRequest.getFullName() == null ? account.getFullName() : accountRequest.getFullName());
         account.setEmail(accountRequest.getEmail() == null ? account.getEmail() : accountRequest.getEmail());
         account.setGender(accountRequest.getGender() == null ? account.getGender() : accountRequest.getGender());
-        account.setUpdateAt(new Date());
+        account.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
         return accountMapper.toAccountResponse(accountRepository.save(account));
     }
 

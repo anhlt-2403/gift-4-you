@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -27,7 +27,7 @@ public class Order {
     private String address;
 
     @Column(name = "create_at")
-    private Date createAt;
+    private Instant createAt;
 
     @Size(max = 255)
     @Column(name = "description")
@@ -48,16 +48,17 @@ public class Order {
     private BigDecimal totalPrice;
 
     @Column(name = "update_at")
-    private Date updateAt;
+    private Instant updateAt;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "order")
     private Set<OrderHistory> orderHistories = new LinkedHashSet<>();
+
 }
