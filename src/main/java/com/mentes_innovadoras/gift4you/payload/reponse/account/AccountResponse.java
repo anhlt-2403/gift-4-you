@@ -1,6 +1,5 @@
 package com.mentes_innovadoras.gift4you.payload.reponse.account;
 
-import com.mentes_innovadoras.gift4you.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

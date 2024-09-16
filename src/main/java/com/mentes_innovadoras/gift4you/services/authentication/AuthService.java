@@ -26,7 +26,7 @@ public class AuthService {
     private long expirationHours;
 
     public LoginResponse login(@Valid LoginRequest loginRequest) throws ArchitectureException {
-        Account account = accountRepository.findByUserName(loginRequest.getUserName()).orElse(null);
+        Account account = accountRepository.findByPhoneNumber(loginRequest.getPhoneNumber()).orElse(null);
         if (account == null) throw new NotFoundException(ResponseConstant.Message.userNotFound);
         if (!passwordEncoder.matches(loginRequest.getPassword(), account.getPassword())) {
             throw new BadCredentialsException(ResponseConstant.Message.invalidPassword);

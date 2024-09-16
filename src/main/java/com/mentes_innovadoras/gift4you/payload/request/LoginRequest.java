@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 public class LoginRequest {
 
-    @NotBlank(message = "Username cannot be blank")
-    @Size(max = 20, message = "Username must be less than or equal to 20 characters")
-    private String userName;
+    @NotBlank(message = "Phone number cannot be blank")
+    @Size(max = 20, message = "Phone number must be less than or equal to 20 characters")
+    private String phoneNumber;
 
     @NotBlank(message = "Password cannot be blank")
     private String password;

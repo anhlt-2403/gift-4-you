@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.*;
 
 @Service
@@ -55,8 +56,8 @@ public class OrderServiceImpl implements OrderService {
         newOrder.setId(UUID.randomUUID());
         newOrder.setStatus(OrderStatus.confirmed.name());
         newOrder.setAccount(account);
-        newOrder.setCreateAt(new Date());
-        newOrder.setUpdateAt(new Date());
+        newOrder.setCreateAt(new Date().toInstant().minus(Duration.ofHours(6)));
+        newOrder.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
 
         Map<UUID, Integer> inventoryQuantities = new HashMap<>();
         Set<OrderDetail> orderDetails = new HashSet<>();
@@ -109,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElse(null);
         if (order == null) throw new NotFoundException(ResponseConstant.Message.orderNotFound);
         order.setStatus(status);
-        order.setUpdateAt(new Date());
+        order.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 }

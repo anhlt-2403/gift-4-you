@@ -1,10 +1,10 @@
 package com.mentes_innovadoras.gift4you.mapper;
 
-import com.mentes_innovadoras.gift4you.entity.Provider;
 import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse;
 import com.mentes_innovadoras.gift4you.payload.request.provider.CreateProviderRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+import com.mentes_innovadoras.gift4you.entity.Provider;
 
 @Component
 public class ProviderMapper {

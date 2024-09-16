@@ -19,15 +19,16 @@ public class Role {
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+
     @Size(max = 50)
     @NotNull
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Size(max = 255)
-    @Column(name = "description")
-    private String description;
-
     @OneToMany(mappedBy = "role")
     private Set<Account> accounts = new LinkedHashSet<>();
+
 }
