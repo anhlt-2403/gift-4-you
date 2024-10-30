@@ -22,5 +22,8 @@ public class ApiEndpointConstant {
         public static final String ProviderEndpoint = ProvidersEndpoint + "/{id}";
     }
 
-
+    public static final class InventoryItem {
+        public static final String InventoryItemsEndpoint = ApiEndpoint + "/inventory-items";
+        public static final String InventoryItemEndpoint = InventoryItemsEndpoint + "/{id}";
+    }
 }

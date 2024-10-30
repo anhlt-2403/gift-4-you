@@ -31,7 +31,7 @@ public class AccountController {
     public final AccountFacade accountFacade;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    @GetMapping(value = ApiEndpointConstant.Account.AccountsEndpoint)
+        @GetMapping(value = ApiEndpointConstant.Account.AccountsEndpoint)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
                     content = @Content(schema = @Schema(implementation = PagedModel.class)))

@@ -24,7 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.UUID;
 
@@ -47,8 +48,8 @@ public class AccountServiceImpl implements AccountService {
         }
         Account newAccount = accountMapper.toAccountEntity(accountRequest);
         newAccount.setId(UUID.randomUUID());
-        newAccount.setCreateAt(new Date().toInstant().minus(Duration.ofHours(6)));
-        newAccount.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
+        newAccount.setCreateAt(OffsetDateTime.now(ZoneOffset.UTC).minusHours(6));
+        newAccount.setUpdateAt(OffsetDateTime.now(ZoneOffset.UTC).minusHours(6));
         newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
         newAccount.setRole(role);
         newAccount.setStatus(AccountStatus.active.name());
@@ -62,7 +63,7 @@ public class AccountServiceImpl implements AccountService {
         account.setFullName(accountRequest.getFullName() == null ? account.getFullName() : accountRequest.getFullName());
         account.setEmail(accountRequest.getEmail() == null ? account.getEmail() : accountRequest.getEmail());
         account.setGender(accountRequest.getGender() == null ? account.getGender() : accountRequest.getGender());
-        account.setUpdateAt(new Date().toInstant().minus(Duration.ofHours(6)));
+        account.setUpdateAt(OffsetDateTime.ofInstant(new Date().toInstant(), ZoneOffset.UTC).minusHours(6));
         return accountMapper.toAccountResponse(accountRepository.save(account));
     }
 

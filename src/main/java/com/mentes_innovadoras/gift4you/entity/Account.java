@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -22,7 +22,7 @@ public class Account {
     private UUID id;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private OffsetDateTime createAt;
 
     @Size(max = 100)
     @Column(name = "email", length = 100)
@@ -52,14 +52,14 @@ public class Account {
     private String status;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private OffsetDateTime updateAt;
 
     @Lob
     @Column(name = "url_img")
     private String urlImg;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 

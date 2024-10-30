@@ -1,8 +1,13 @@
 package com.mentes_innovadoras.gift4you.payload.reponse.provider;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 import java.util.UUID;
 
+@Setter
+@Getter
 public class ProviderResponse {
     private UUID id;
 

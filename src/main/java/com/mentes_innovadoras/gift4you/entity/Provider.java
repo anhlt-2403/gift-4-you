@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,7 +30,7 @@ public class Provider {
     private String contactInfo;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private OffsetDateTime createAt;
 
     @Size(max = 50)
     @NotNull
@@ -43,7 +43,7 @@ public class Provider {
     private String status;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private OffsetDateTime updateAt;
 
     @OneToMany(mappedBy = "provider")
     private Set<InventoryItem> inventoryItems = new LinkedHashSet<>();
