@@ -15,8 +15,6 @@ public class OrderRequest {
     @Size(max = 255, message = "Address must be less than or equal to 255 characters")
     private String address;
 
-    private Date createAt;
-
     @Size(max = 255, message = "Description must be less than or equal to 255 characters")
     private String description;
 
@@ -29,11 +27,10 @@ public class OrderRequest {
     @Positive
     private BigDecimal totalPrice;
 
-    private Date updateAt;
-
     @NotNull
     private UUID accountId;
 
-    @NotEmpty
-    private Set<OrderDetailRequest> orderDetails;
+    private UUID templateId;
+
+    private Set<OrderDetailRequest> orderDetailsRequest;
 }

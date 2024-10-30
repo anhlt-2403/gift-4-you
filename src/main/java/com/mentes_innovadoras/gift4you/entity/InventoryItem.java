@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -22,7 +22,7 @@ public class InventoryItem {
     private UUID id;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private OffsetDateTime createAt;
 
     @Size(max = 255)
     @Column(name = "description")
@@ -47,15 +47,15 @@ public class InventoryItem {
     private Integer stock;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private OffsetDateTime updateAt;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
     @OneToMany(mappedBy = "inventoryItem")
-    private Set<OrderDetailItem> orderDetailItems = new LinkedHashSet<>();
+    private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "inventoryItem")
     private Set<TemplateDetail> templateDetails = new LinkedHashSet<>();

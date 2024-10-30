@@ -18,12 +18,16 @@ public class TemplateDetail {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "inventory_item_id", nullable = false)
+    private InventoryItem inventoryItem;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "template_id", nullable = false)
     private Template template;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "inventory_item_id", nullable = false)
-    private InventoryItem inventoryItem;
+    @Column(name = "quantiy", nullable = false)
+    private Integer quantiy;
 
 }

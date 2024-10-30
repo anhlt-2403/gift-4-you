@@ -20,11 +20,6 @@ public class Template {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @NotNull
-    @Lob
-    @Column(name = "url_img", nullable = false)
-    private String urlImg;
-
     @Size(max = 255)
     @Column(name = "description")
     private String description;
@@ -34,6 +29,14 @@ public class Template {
 
     @Column(name = "total_sales")
     private Integer totalSales;
+
+    @NotNull
+    @Lob
+    @Column(name = "url_img", nullable = false)
+    private String urlImg;
+
+    @OneToMany(mappedBy = "template")
+    private Set<Order> orders = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "template")
     private Set<Review> reviews = new LinkedHashSet<>();

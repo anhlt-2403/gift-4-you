@@ -1,6 +1,7 @@
 package com.mentes_innovadoras.gift4you.payload.reponse.order;
 
 import com.mentes_innovadoras.gift4you.payload.reponse.order_detail.OrderDetailResponse;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Setter
+@Getter
 public class OrderResponse {
 
     private UUID id;
@@ -29,5 +31,5 @@ public class OrderResponse {
 
     private String customerName;
 
-    private Set<OrderDetailResponse> orderDetails;
+//    private Set<OrderDetailResponse> orderDetails;
 }

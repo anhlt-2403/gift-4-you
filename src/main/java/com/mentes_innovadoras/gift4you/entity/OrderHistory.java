@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +19,7 @@ public class OrderHistory {
     private UUID id;
 
     @Column(name = "create_at")
-    private Instant createAt;
+    private OffsetDateTime createAt;
 
     @Size(max = 255)
     @Column(name = "description")
@@ -31,7 +31,7 @@ public class OrderHistory {
     private String status;
 
     @Column(name = "update_at")
-    private Instant updateAt;
+    private OffsetDateTime updateAt;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
