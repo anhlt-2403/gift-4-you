@@ -99,4 +99,10 @@ public class OrderServiceImpl implements OrderService {
         order.setUpdateAt(OffsetDateTime.now(ZoneOffset.UTC).minusHours(6));
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
+
+    @Override
+    public PagedModel<OrderResponse> getOrdersByUserId(UUID id, Pageable pageable) throws ArchitectureException {
+        Account account = accountRepository.findById(id).orElseThrow(() -> new NotFoundException(ResponseConstant.Message.userNotFound));
+        return new PagedModel<>(orderRepository.findByAccount_Id(id, pageable).map(orderMapper::toOrderResponse));
+    }
 }

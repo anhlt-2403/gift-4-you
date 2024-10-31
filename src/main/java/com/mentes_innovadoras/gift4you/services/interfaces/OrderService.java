@@ -13,4 +13,5 @@ public interface OrderService {
     OrderResponse getOrderById(UUID id) throws ArchitectureException;
     OrderResponse createOrder(OrderRequest OrderRequest) throws ArchitectureException;
     OrderResponse updateOrderStatus(UUID id, String status)throws ArchitectureException;
+    PagedModel<OrderResponse> getOrdersByUserId(UUID id, Pageable pageable) throws ArchitectureException;
 }
