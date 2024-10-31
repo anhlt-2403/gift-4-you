@@ -29,4 +29,8 @@ public class OrderFacade {
     public Object updateOrderStatus(UUID id, String status) throws ArchitectureException {
         return orderService.updateOrderStatus(id, status);
     }
+
+    public Object getOrdersByAccountId(UUID id, Pageable pageable) throws ArchitectureException {
+        return  orderService.getOrdersByUserId(id, pageable);
+    }
 }

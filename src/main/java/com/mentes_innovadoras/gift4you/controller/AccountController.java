@@ -2,6 +2,7 @@ package com.mentes_innovadoras.gift4you.controller;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.facade.AccountFacade;
+import com.mentes_innovadoras.gift4you.facade.OrderFacade;
 import com.mentes_innovadoras.gift4you.payload.common.ResponseHandler;
 import com.mentes_innovadoras.gift4you.payload.reponse.account.AccountResponse;
 import com.mentes_innovadoras.gift4you.payload.request.account.CreateAccountRequest;
@@ -29,6 +30,7 @@ import java.util.UUID;
 @Tag(name = "Account")
 public class AccountController {
     public final AccountFacade accountFacade;
+    public final OrderFacade orderFacade;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
         @GetMapping(value = ApiEndpointConstant.Account.AccountsEndpoint)
@@ -43,6 +45,18 @@ public class AccountController {
         return ResponseHandler.response(HttpStatus.OK, accountFacade.getAccounts(pageable), true);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'CUSTOMER')")
+    @GetMapping(value = ApiEndpointConstant.Account.OrdersOfAccountEndpoint)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful",
+                    content = @Content(schema = @Schema(implementation = PagedModel.class)))
+    })
+    public ResponseEntity<Object> getOrdersByAccountId(@PathVariable("id") UUID id,@RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) throws ArchitectureException
+    {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseHandler.response(HttpStatus.OK, orderFacade.getOrdersByAccountId(id,pageable), true);
+    }
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'CUSTOMER')")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
