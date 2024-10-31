@@ -26,8 +26,6 @@ public class CreateAccountRequest {
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
-    private String urlImg;
-
     @NotBlank(message = "Role cannot be blank")
     private String role;
 }
