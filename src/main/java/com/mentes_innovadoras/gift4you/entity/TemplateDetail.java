@@ -17,17 +17,17 @@ public class TemplateDetail {
     private UUID id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "inventory_item_id", nullable = false)
     private InventoryItem inventoryItem;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "template_id", nullable = false)
     private Template template;
 
     @NotNull
-    @Column(name = "quantiy", nullable = false)
-    private Integer quantiy;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
 }

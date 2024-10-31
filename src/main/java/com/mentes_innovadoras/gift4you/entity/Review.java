@@ -26,7 +26,7 @@ public class Review {
     private Integer start;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "template_id", nullable = false)
     private Template template;
 

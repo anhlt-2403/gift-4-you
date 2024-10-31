@@ -34,7 +34,7 @@ public class OrderHistory {
     private OffsetDateTime updateAt;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 

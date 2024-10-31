@@ -12,6 +12,4 @@ public class UpdateAccountRequest {
 
     @Size(max = 10, message = "Gender must be less than or equal to 10 characters")
     private String gender;
-
-    private String urlImg;
 }
