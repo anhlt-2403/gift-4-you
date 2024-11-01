@@ -30,7 +30,6 @@ import java.util.UUID;
 public class InventoryItemController {
     public final InventoryItemFacade inventoryItemFacade;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'CUSTOMER')")
     @GetMapping(value = ApiEndpointConstant.InventoryItem.InventoryItemsEndpoint)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful",
