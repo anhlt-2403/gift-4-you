@@ -33,5 +33,7 @@ public class OrderResponse {
 
     private String customerName;
 
+    private UUID templateId;
+
     private Set<OrderDetailResponse> orderDetailResponses;
 }
