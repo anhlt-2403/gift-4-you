@@ -13,6 +13,7 @@ import com.mentes_innovadoras.gift4you.payload.request.order.OrderRequest;
 import com.mentes_innovadoras.gift4you.repository.AccountRepository;
 import com.mentes_innovadoras.gift4you.repository.InventoryItemRepository;
 import com.mentes_innovadoras.gift4you.repository.OrderRepository;
+import com.mentes_innovadoras.gift4you.repository.TemplateRepository;
 import com.mentes_innovadoras.gift4you.services.interfaces.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
     private final AccountRepository accountRepository;
     private final OrderRepository orderRepository;
     private final InventoryItemRepository inventoryItemRepository;
+    private final TemplateRepository templateRepository;
     private final OrderMapper orderMapper;
     private final OrderDetailMapper orderDetailMapper;
 
@@ -80,9 +82,10 @@ public class OrderServiceImpl implements OrderService {
 
             newOrder.setOrderDetails(orderDetails);
         }
-        // else {
-        //    newOrder.setTemplate(...)
-        // }
+         else {
+             Template template = templateRepository.findById(orderRequest.getTemplateId()).orElse(null);
+             newOrder.setTemplate(template);
+         }
 
         Order savedOrder = orderRepository.save(newOrder);
 

@@ -37,24 +37,27 @@ public class OrderMapper {
     public OrderResponse toOrderResponse(Order order) {
         // Ánh xạ Order sang OrderResponse
         OrderResponse response = mapper.map(order, OrderResponse.class);
+        if (order.getTemplate() != null) {
+            response.setTemplateId(order.getTemplate().getId());
+        }else {
+            Type targetListType = new TypeToken<Set<OrderDetailResponse>>() {}.getType();
+            Set<OrderDetailResponse> orderDetailResponses = mapper.map(order.getOrderDetails(), targetListType);
 
-        // Ánh xạ OrderDetails sang OrderDetailResponses
-        Type targetListType = new TypeToken<Set<OrderDetailResponse>>() {}.getType();
-        Set<OrderDetailResponse> orderDetailResponses = mapper.map(order.getOrderDetails(), targetListType);
-
-        // Duyệt qua các OrderDetail để thêm inventoryItemId vào OrderDetailResponse
-        for (OrderDetail orderDetail : order.getOrderDetails()) {
-            // Duyệt qua các OrderDetailResponse để tìm OrderDetailResponse tương ứng
-            for (OrderDetailResponse detailResponse : orderDetailResponses) {
-                if (detailResponse.getInventoryItemId() == null) {
-                    // Nếu chưa có inventoryItemId, thêm vào từ InventoryItem của OrderDetail
-                    detailResponse.setInventoryItemId(orderDetail.getInventoryItem().getId());
+            // Duyệt qua các OrderDetail để thêm inventoryItemId vào OrderDetailResponse
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
+                // Duyệt qua các OrderDetailResponse để tìm OrderDetailResponse tương ứng
+                for (OrderDetailResponse detailResponse : orderDetailResponses) {
+                    if (detailResponse.getInventoryItemId() == null) {
+                        // Nếu chưa có inventoryItemId, thêm vào từ InventoryItem của OrderDetail
+                        detailResponse.setInventoryItemId(orderDetail.getInventoryItem().getId());
+                    }
                 }
             }
-        }
 
-        // Thiết lập các thông tin khác vào OrderResponse
-        response.setOrderDetailResponses(orderDetailResponses);
+            // Thiết lập các thông tin khác vào OrderResponse
+            response.setOrderDetailResponses(orderDetailResponses);
+        }
+        // Ánh xạ OrderDetails sang OrderDetailResponses
         response.setAccountId(order.getAccount().getId());
         response.setCustomerName(order.getAccount().getFullName());
 
