@@ -45,7 +45,7 @@ public class Provider {
     @Column(name = "update_at")
     private OffsetDateTime updateAt;
 
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", fetch = FetchType.EAGER)
     private Set<InventoryItem> inventoryItems = new LinkedHashSet<>();
 
 }

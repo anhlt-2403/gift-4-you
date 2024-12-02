@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class OrderDetailResponse {
-    private UUID id;
+    private UUID inventoryItemId;
 
     private Integer quantity;
 

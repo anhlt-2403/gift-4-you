@@ -29,7 +29,9 @@ public class OrderResponse {
 
     private Date updateAt;
 
+    private UUID accountId;
+
     private String customerName;
 
-//    private Set<OrderDetailResponse> orderDetails;
+    private Set<OrderDetailResponse> orderDetailResponses;
 }

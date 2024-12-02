@@ -1,9 +1,7 @@
 package com.mentes_innovadoras.gift4you.payload.request.inventory_item;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -19,9 +17,11 @@ public class CreateInventoryItemRequest {
     private String name;
 
     @NotNull
+    @Positive
     private BigDecimal price;
 
     @NotNull
+    @Min(0)
     private Integer stock;
 
     @NotNull

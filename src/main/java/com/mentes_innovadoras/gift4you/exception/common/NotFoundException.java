@@ -9,6 +9,6 @@ public class NotFoundException extends ArchitectureException {
         super();
         this.code = ResponseConstant.Code.notFound;
         this.msg = msg;
-        this.status = HttpStatus.NOT_FOUND;
+        this.status = HttpStatus.BAD_REQUEST;
     }
 }

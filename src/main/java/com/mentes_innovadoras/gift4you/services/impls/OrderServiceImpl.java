@@ -55,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
         // Tạo Order mới từ OrderRequest
         Order newOrder = orderMapper.toOrderEntity(orderRequest);
+        newOrder.setId(UUID.randomUUID());
         newOrder.setStatus(OrderStatus.confirmed.name());
         newOrder.setAccount(account);
         newOrder.setCreateAt(OffsetDateTime.now(ZoneOffset.UTC).minusHours(6));
