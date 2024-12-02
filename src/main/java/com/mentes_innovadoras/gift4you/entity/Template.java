@@ -38,10 +38,10 @@ public class Template {
     @OneToMany(mappedBy = "template")
     private Set<Order> orders = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "template")
+    @OneToMany(mappedBy = "template", fetch = FetchType.EAGER)
     private Set<Review> reviews = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "template")
+    @OneToMany(mappedBy = "template", cascade = CascadeType.ALL)
     private Set<TemplateDetail> templateDetails = new LinkedHashSet<>();
 
 }

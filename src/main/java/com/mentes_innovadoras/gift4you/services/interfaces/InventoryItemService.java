@@ -2,7 +2,7 @@ package com.mentes_innovadoras.gift4you.services.interfaces;
 
 import com.mentes_innovadoras.gift4you.exception.core.ArchitectureException;
 import com.mentes_innovadoras.gift4you.payload.reponse.inventory_item.InventoryItemResponse;
-import com.mentes_innovadoras.gift4you.payload.reponse.provider.ProviderResponse;
+
 import com.mentes_innovadoras.gift4you.payload.request.inventory_item.CreateInventoryItemRequest;
 import com.mentes_innovadoras.gift4you.payload.request.inventory_item.UpdateInventoryItemRequest;
 import org.springframework.data.domain.Pageable;
